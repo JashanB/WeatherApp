@@ -54,57 +54,9 @@ const Input = (props) => {
   )
 }
 
-// const onPlacesChanged = () => {
-//   const places = refs.searchBox.getPlaces(); //gets place of thing searched
-//   console.log(places[0], "This is places from onPlacesChanged");
-//   const bounds = new window.google.maps.LatLngBounds(); //gets boundaries for that place
-//   // if (places[0].geometry) {
-
-//   //   places.forEach(place => {
-
-//   //     if (place.geometry.viewport) {
-//   //       bounds.union(place.geometry.viewport)
-//   //     } else {
-//   //       bounds.extend(place.geometry.location)
-//   //     }
-//   //   })
-
-//   //   if (places.length === 0) {
-//   //     return;
-//   //   }
-
-//   //   const nextMarkers = places.map(place => ({
-//   //     position: place.geometry.location,
-//   //   }));
-
-//   //   const nextCenter = _.get(nextMarkers, '0.position', state.center);
-//   //   // setState(state => ({
-//   //   //   ...state,
-//   //   //   bounds: bounds,
-//   //   //   center: nextCenter,
-//   //   //   markers: [...state.markers, nextMarkers],
-//   //   //   location: {
-//   //   //     name: {
-//   //   //       placeName: places[0].name, 
-//   //   //       region: (places[0].address_components[2] ? places[0].address_components[2].long_name : null)
-//   //   //     },
-//   //   //     coordinates: {
-//   //   //       lat: places[0].geometry.location.lat(), 
-//   //   //       lng: places[0].geometry.location.lng()
-//   //   //     }
-//   //   //   }
-//   //   // }))
-//   // }
-// }
-
 const StandaloneSearchBox = withScriptjs((props) => {
+  
   return (
-    // <GoogleMap
-    //   defaultZoom={2}
-    //   center={props.center}
-    //   ref={props.onMapMounted}
-    //   onBoundsChanged={props.onBoundsChanged}
-    // >
       <SearchBox
         ref={props.onSearchBoxMounted}
         controlPosition={window.google.maps.ControlPosition.TOP_LEFT}
@@ -122,9 +74,13 @@ const StandaloneSearchBox = withScriptjs((props) => {
 )
 
 export default (props) => {
-  // const [directions, setDirections] = useState({ directionsArray: [] });
-  // const [loaded, setLoaded] = useState("false")
-  // const google = window.google
+  const[places, setPlaces] = useState({});
+
+  const onPlacesChanged = () => {
+    const places = refs.searchBox.getPlaces(); //gets place of thing searched
+    console.log(places[0], "This is places from onPlacesChanged");
+    setPlaces(state => ({places: places}))
+  }
 
   // useEffect(() => {
    
@@ -137,17 +93,11 @@ export default (props) => {
   }
   return (<>
     <StandaloneSearchBox
-      lat={41.9}
-      lng={-87.624}
       googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}
       loadingElement={<div style={{ height: `100%` }} />}
       containerElement={<div style={{ height: `100%` }} />}
-      mapElement={<div style={{ height: `100%` }} />}
       onPlacesChanged={onPlacesChanged}
-      center={props.center}
-      markers={props.markers}
       onSearchBoxMounted={onSearchBoxMounted}
-      // onMapMounted={props.onMapMounted}
     />
   </>)
 }
