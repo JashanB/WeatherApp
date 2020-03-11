@@ -83,18 +83,39 @@ export default (props) => {
     const places = refs.searchBox.getPlaces(); //gets place of thing searched
     console.log(places[0], "This is places from onPlacesChanged");
     setPlacesOfSearched(state => ({ places: places }))
-    setCoordOfSearched(state => ({ coordinates: {
-      lat: places[0].geometry.location.lat(), 
-      lng: places[0].geometry.location.lng()
-    } }))
+    setCoordOfSearched(state => ({
+      coordinates: {
+        lat: places[0].geometry.location.lat(),
+        lng: places[0].geometry.location.lng()
+      }
+    }))
 
   }
-  setTimeout(function() {
+  setTimeout(function () {
     console.log('this is state', placesOfSearched)
+    console.log('this is coord', coordOfSearched)
   }, 5000)
-  // useEffect(() => {
 
-  // }, [])
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const timeNow = Date.now() / 1000
+        const weekWeatherResponse = await axios.post(`http://localhost:3001/weather/new`, {
+          lat: coordOfSearched.coordinates.lat,
+          lng: coordOfSearched.coordinates.lng
+        })
+        const historicalWeatherResponse = await axios.post(`http://localhost:3001/weather/old`, {
+          lat: coordOfSearched.coordinates.lat,
+          lng: coordOfSearched.coordinates.lng,
+          time: timeNow
+          })
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    fetchData()
+  }, [placesOfSearched])
+
   return (<>
     <SearchBox
       googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}
