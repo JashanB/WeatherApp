@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { withScriptjs, withGoogleMap, GoogleMap, Marker, DirectionsRenderer } from "react-google-maps"
-import SearchBox from "react-google-maps/lib/components/places/SearchBox";
+import { withScriptjs } from "react-google-maps"
+// import SearchBox from "react-google-maps/lib/components/places/SearchBox";
 import _ from 'lodash';
 import axios from 'axios';
-import { Button } from 'react-bootstrap'
 // import {
 //   BrowserRouter as Router,
 //   Switch,
@@ -55,42 +54,39 @@ const Input = (props) => {
 }
 
 const SearchBox = withScriptjs((props) => {
-  
+
   return (
-      <div>
+    <div className="stand-alone-search">
+      <StandaloneSearchBox
         ref={props.onSearchBoxMounted}
         controlPosition={window.google.maps.ControlPosition.TOP_LEFT}
         onPlacesChanged={props.onPlacesChanged}
         bounds={props.bounds}
       >
-        <Input suggestedState={props.suggestedState} suggestedLocation={props.suggestMarker.position} />
-      {/* {(props.markers ? props.markers.map((marker, index) =>
+        <Input />
+        {/* <Input suggestedState={props.suggestedState} suggestedLocation={props.suggestMarker.position} /> */}
+        {/* {(props.markers ? props.markers.map((marker, index) =>
         <Marker key={index} position={marker.position} title={marker.title} />
       ) : console.log('no marker'))} */}
-    {/* // </GoogleMap> */}
+        {/* // </GoogleMap> */}
+      </StandaloneSearchBox>
     </div>
   )
 }
 )
 
 export default (props) => {
-  const[places, setPlaces] = useState({});
+  const [places, setPlaces] = useState({});
 
   const onPlacesChanged = () => {
     const places = refs.searchBox.getPlaces(); //gets place of thing searched
     console.log(places[0], "This is places from onPlacesChanged");
-    setPlaces(state => ({places: places}))
+    setPlaces(state => ({ places: places }))
   }
 
   // useEffect(() => {
-   
-  // }, [])
-  const onPlacesChanged = () => {
-    const places = refs.searchBox.getPlaces(); //gets place of thing searched
-    console.log(places[0], "This is places from onPlacesChanged");
-    const bounds = new window.google.maps.LatLngBounds(); //gets boundaries for that place
 
-  }
+  // }, [])
   return (<>
     <SearchBox
       googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}
