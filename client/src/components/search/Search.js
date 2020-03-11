@@ -54,10 +54,10 @@ const Input = (props) => {
   )
 }
 
-const StandaloneSearchBox = withScriptjs((props) => {
+const SearchBox = withScriptjs((props) => {
   
   return (
-      <SearchBox
+      <div>
         ref={props.onSearchBoxMounted}
         controlPosition={window.google.maps.ControlPosition.TOP_LEFT}
         onPlacesChanged={props.onPlacesChanged}
@@ -68,7 +68,7 @@ const StandaloneSearchBox = withScriptjs((props) => {
         <Marker key={index} position={marker.position} title={marker.title} />
       ) : console.log('no marker'))} */}
     {/* // </GoogleMap> */}
-      </SearchBox>
+    </div>
   )
 }
 )
@@ -92,7 +92,7 @@ export default (props) => {
 
   }
   return (<>
-    <StandaloneSearchBox
+    <SearchBox
       googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}
       loadingElement={<div style={{ height: `100%` }} />}
       containerElement={<div style={{ height: `100%` }} />}
