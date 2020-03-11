@@ -76,14 +76,22 @@ const SearchBox = withScriptjs((props) => {
 )
 
 export default (props) => {
-  const [places, setPlaces] = useState({});
+  const [placesOfSearched, setPlacesOfSearched] = useState({});
+  const [coordOfSearched, setCoordOfSearched] = useState({});
 
   const onPlacesChanged = () => {
     const places = refs.searchBox.getPlaces(); //gets place of thing searched
     console.log(places[0], "This is places from onPlacesChanged");
-    setPlaces(state => ({ places: places }))
-  }
+    setPlacesOfSearched(state => ({ places: places }))
+    setCoordOfSearched(state => ({ coordinates: {
+      lat: places[0].geometry.location.lat(), 
+      lng: places[0].geometry.location.lng()
+    } }))
 
+  }
+  setTimeout(function() {
+    console.log('this is state', placesOfSearched)
+  }, 5000)
   // useEffect(() => {
 
   // }, [])
