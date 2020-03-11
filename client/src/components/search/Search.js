@@ -113,7 +113,9 @@ export default (props) => {
         console.error(error)
       }
     }
-    fetchData()
+    if (coordOfSearched && coordOfSearched.coordinates && coordOfSearched.coordinates.lat) {
+      fetchData()
+    }
   }, [placesOfSearched])
 
   return (<>
