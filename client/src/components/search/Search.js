@@ -78,6 +78,7 @@ const SearchBox = withScriptjs((props) => {
 export default (props) => {
   const [placesOfSearched, setPlacesOfSearched] = useState({});
   const [coordOfSearched, setCoordOfSearched] = useState({});
+  const [weather, setWeather] = useState({});
 
   const onPlacesChanged = () => {
     const places = refs.searchBox.getPlaces(); //gets place of thing searched
@@ -126,5 +127,6 @@ export default (props) => {
       onPlacesChanged={onPlacesChanged}
       onSearchBoxMounted={onSearchBoxMounted}
     />
+    {/* <WeatherList /> */}
   </>)
 }
