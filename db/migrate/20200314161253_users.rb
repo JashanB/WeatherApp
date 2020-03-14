@@ -9,7 +9,5 @@ class Users < ActiveRecord::Migration[5.2]
       t.decimal "latitude", null: false
       t.decimal "longitude", null: false
     end
-  
-    add_foreign_key :places, :users
-  end
+    end
 end
