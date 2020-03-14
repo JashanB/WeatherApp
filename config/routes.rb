@@ -3,7 +3,8 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
 
-  resource :home, only: [:index]
+  # resource :home, only: [:index]
+  resource :home
 
   # namespace :api do # /api/data
 

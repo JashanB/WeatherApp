@@ -11,7 +11,7 @@ import axios from 'axios';
 //   useParams
 // } from "react-router-dom";
 import './Search.css';
-
+import WeatherList from '../weatherList'
 const { StandaloneSearchBox } = require("react-google-maps/lib/components/places/StandaloneSearchBox");
 
 const refs = {}; //google map element 
@@ -79,6 +79,7 @@ export default (props) => {
   const [placesOfSearched, setPlacesOfSearched] = useState({});
   const [coordOfSearched, setCoordOfSearched] = useState({});
   const [weather, setWeather] = useState({});
+  const [allPlaces, setAllPlaces] = useState({});
 
   const onPlacesChanged = () => {
     const places = refs.searchBox.getPlaces(); //gets place of thing searched
@@ -119,6 +120,15 @@ export default (props) => {
     }
   }, [placesOfSearched])
 
+  useEffect(() => {
+    try {
+      const placesDate = await axios.get(`http://localhost:3001/weather/new`)
+
+    } catch (error) {
+      console.error(error)
+    }
+  }, [allPlaces])
+
   return (<>
     <SearchBox
       googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}
@@ -127,6 +137,8 @@ export default (props) => {
       onPlacesChanged={onPlacesChanged}
       onSearchBoxMounted={onSearchBoxMounted}
     />
-    {/* <WeatherList /> */}
+    <WeatherList 
+    items={"Needs to be passed down names of places searched and weather data"}
+    />
   </>)
 }
