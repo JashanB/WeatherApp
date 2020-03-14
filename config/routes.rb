@@ -6,13 +6,15 @@ Rails.application.routes.draw do
   # resource :home, only: [:index]
   resource :home
 
-  # namespace :api do # /api/data
-
-  #   get '/data', to: 'tests#index'
-    
-  #   resources :dogs
-
+  # namespace :api, defaults: { format: 'json' } do
+  #   resources :users do
+  #     resources :places
+  #   end
   # end
+  resources :users do
+      resources :places
+  end
+  
 
   post '/weather/new' => 'weather#index'
   post '/weather/old' => 'weather#show'

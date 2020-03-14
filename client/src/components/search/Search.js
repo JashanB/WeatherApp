@@ -12,6 +12,13 @@ import axios from 'axios';
 // } from "react-router-dom";
 import './Search.css';
 import WeatherList from '../weatherList'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams
+} from "react-router-dom";
 const { StandaloneSearchBox } = require("react-google-maps/lib/components/places/StandaloneSearchBox");
 
 const refs = {}; //google map element 
@@ -19,7 +26,7 @@ const onSearchBoxMounted = (ref) => {
   refs.searchBox = ref;
 }
 
-
+const { id } = useParams();
 
 const Input = (props) => {
   return (
