@@ -26,6 +26,7 @@ gem 'puma', '~> 3.11'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'excon'
 gem "figaro"
+gem 'rack-cors', :require => 'rack/cors'
 
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
