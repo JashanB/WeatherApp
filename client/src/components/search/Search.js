@@ -11,7 +11,7 @@ import axios from 'axios';
 //   useParams
 // } from "react-router-dom";
 import './Search.css';
-import WeatherList from '../weatherList'
+// import WeatherList from '../weatherList'
 import {
   BrowserRouter as Router,
   Switch,
@@ -25,8 +25,6 @@ const refs = {}; //google map element
 const onSearchBoxMounted = (ref) => {
   refs.searchBox = ref;
 }
-
-const { id } = useParams();
 
 const Input = (props) => {
   return (
@@ -85,7 +83,9 @@ export default (props) => {
   const [placesOfSearched, setPlacesOfSearched] = useState({});
   const [coordOfSearched, setCoordOfSearched] = useState({});
   const [weather, setWeather] = useState({});
-  const [allPlaces, setAllPlaces] = useState({places: []});
+  const [allPlaces, setAllPlaces] = useState({ places: [] });
+  const { id } = useParams();
+  console.log(id)
 
   const onPlacesChanged = () => {
     const places = refs.searchBox.getPlaces(); //gets place of thing searched
@@ -98,18 +98,17 @@ export default (props) => {
     //   }
     // }))
     const placesObject = {
-      name: places[0].name, 
+      name: places[0].name,
       latitude: places[0].geometry.location.lat(),
       longitude: places[0].geometry.location.lng()
     }
-    setAllPlaces(state => {
+    setAllPlaces(state => ({
       places: [...allPlaces.places, placesObject]
-    })
+    }))
 
   }
   setTimeout(function () {
-    console.log('this is state', placesOfSearched)
-    console.log('this is coord', coordOfSearched)
+    console.log('this is state', allPlaces)
   }, 5000)
 
   // useEffect(() => {
@@ -135,23 +134,26 @@ export default (props) => {
   // }, [allPlaces])
 
   useEffect(() => {
-    try {
-      const placesArray = [];
-      const placesData = await axios.get(`http://localhost:3001/users/${id}`)
-      for (let place of placesData.data.places) {
-        const placeObject = {
-          name: place.name,
-          latitude: parseFloat(place.latitude),
-          longitude: parseFloat(place.longitude)
+    async function fetchData() {
+      try {
+        const placesArray = [];
+        const placesData = await axios.get(`http://localhost:3001/users/${id}`)
+        for (let place of placesData.data.places) {
+          const placeObject = {
+            name: place.name,
+            latitude: parseFloat(place.latitude),
+            longitude: parseFloat(place.longitude)
+          }
+          placesArray.push(placeObject)
         }
-        placesArray.push(placeObject)
+        setAllPlaces(state => ({
+          places: [...allPlaces.places, ...placesArray]
+        }))
+      } catch (error) {
+        console.error(error)
       }
-      setAllPlaces(state => ({
-        places: [...allPlaces.places, ...placesArray]
-      }))    
-    } catch (error) {
-      console.error(error)
     }
+    fetchData();
   }, [])
 
   return (<>
@@ -162,8 +164,8 @@ export default (props) => {
       onPlacesChanged={onPlacesChanged}
       onSearchBoxMounted={onSearchBoxMounted}
     />
-    <WeatherList 
-    items={"Needs to be passed down names of places searched and weather data"}
-    />
+    {/* <WeatherList
+      items={"Needs to be passed down names of places searched and weather data"}
+    /> */}
   </>)
 }
