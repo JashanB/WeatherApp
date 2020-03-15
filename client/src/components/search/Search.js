@@ -85,54 +85,66 @@ export default (props) => {
   const [weather, setWeather] = useState({});
   const [allPlaces, setAllPlaces] = useState({ places: [] });
   const { id } = useParams();
-  console.log(id)
 
   const onPlacesChanged = () => {
     const places = refs.searchBox.getPlaces(); //gets place of thing searched
     console.log(places[0], "This is places from onPlacesChanged");
-    const placesObject = {
-      name: places[0].name,
-      latitude: places[0].geometry.location.lat(),
-      longitude: places[0].geometry.location.lng()
+    async function insertData() {
+      try {
+        const placesData = await axios.post(`http://localhost:3001/users/${id}/places`, {
+          user_id: id,
+          name: places[0].name,
+          latitude: places[0].geometry.location.lat(),
+          longitude: places[0].geometry.location.lng()
+        })
+        const placesObject = {
+          name: places[0].name,
+          id: placesData.data.place.id,
+          latitude: places[0].geometry.location.lat(),
+          longitude: places[0].geometry.location.lng()
+        }
+        setAllPlaces(state => ({
+          places: [...allPlaces.places, placesObject]
+        }))
+      } catch (error) {
+        console.error(error)
+      }
     }
-    setAllPlaces(state => ({
-      places: [...allPlaces.places, placesObject]
-    }))
-
+    insertData();
   }
   setTimeout(function () {
     console.log('this is state', allPlaces)
   }, 5000)
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const timeNow = Date.now() / 1000
-        //want to subtract 1 year from current time and get historical data for that - globy warming
-        //can go until get no response back from api 
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       const timeNow = Date.now() / 1000
+  //       //want to subtract 1 year from current time and get historical data for that - globy warming
+  //       //can go until get no response back from api 
 
-        //iterate through places array, call weather api for each entry 
-        //can save response objects to array with all weather data 
-        //
-        for (let place of allPlaces.places) {
-          const weekWeatherResponse = await axios.post(`http://localhost:3001/weather/new`, {
-            latitude: place.latitude,
-            longitude: place.longitude
-          })
-        }
-        const historicalWeatherResponse = await axios.post(`http://localhost:3001/weather/old`, {
-          lat: coordOfSearched.coordinates.lat,
-          lng: coordOfSearched.coordinates.lng,
-          time: timeNow
-          })
-      } catch (error) {
-        console.error(error)
-      }
-    }
-    if (coordOfSearched && coordOfSearched.coordinates && coordOfSearched.coordinates.lat) {
-      fetchData()
-    }
-  }, [allPlaces])
+  //       //iterate through places array, call weather api for each entry 
+  //       //can save response objects to array with all weather data 
+  //       //
+  //       for (let place of allPlaces.places) {
+  //         const weekWeatherResponse = await axios.post(`http://localhost:3001/weather/new`, {
+  //           latitude: place.latitude,
+  //           longitude: place.longitude
+  //         })
+  //       }
+  //       const historicalWeatherResponse = await axios.post(`http://localhost:3001/weather/old`, {
+  //         lat: coordOfSearched.coordinates.lat,
+  //         lng: coordOfSearched.coordinates.lng,
+  //         time: timeNow
+  //         })
+  //     } catch (error) {
+  //       console.error(error)
+  //     }
+  //   }
+  //   if (coordOfSearched && coordOfSearched.coordinates && coordOfSearched.coordinates.lat) {
+  //     fetchData()
+  //   }
+  // }, [allPlaces])
 
   useEffect(() => {
     async function fetchData() {

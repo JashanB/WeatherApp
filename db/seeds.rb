@@ -10,8 +10,8 @@ puts "Seeding Data ..."
 
 puts "Creating points ..."
 
-User.destroy_all
 Place.destroy_all
+User.destroy_all
 
 User.create(id: 1, email: "a@a")
 Place.create(id: 1, name: "Houston", latitude: 29.7604267, longitude: -95.3698028, user_id: 1)
