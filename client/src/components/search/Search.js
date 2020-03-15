@@ -55,7 +55,6 @@ const Input = (props) => {
         // outline: `none`,
         // textOverflow: `ellipses`,
       }}
-    // value={props.}
     />
   )
 }
@@ -86,18 +85,26 @@ export default (props) => {
   const [placesOfSearched, setPlacesOfSearched] = useState({});
   const [coordOfSearched, setCoordOfSearched] = useState({});
   const [weather, setWeather] = useState({});
-  const [allPlaces, setAllPlaces] = useState({});
+  const [allPlaces, setAllPlaces] = useState({places: []});
 
   const onPlacesChanged = () => {
     const places = refs.searchBox.getPlaces(); //gets place of thing searched
     console.log(places[0], "This is places from onPlacesChanged");
-    setPlacesOfSearched(state => ({ places: places }))
-    setCoordOfSearched(state => ({
-      coordinates: {
-        lat: places[0].geometry.location.lat(),
-        lng: places[0].geometry.location.lng()
-      }
-    }))
+    // setPlacesOfSearched(state => ({ places: places }))
+    // setCoordOfSearched(state => ({
+    //   coordinates: {
+    //     lat: places[0].geometry.location.lat(),
+    //     lng: places[0].geometry.location.lng()
+    //   }
+    // }))
+    const placesObject = {
+      name: places[0].name, 
+      latitude: places[0].geometry.location.lat(),
+      longitude: places[0].geometry.location.lng()
+    }
+    setAllPlaces(state => {
+      places: [...allPlaces.places, placesObject]
+    })
 
   }
   setTimeout(function () {
@@ -105,36 +112,47 @@ export default (props) => {
     console.log('this is coord', coordOfSearched)
   }, 5000)
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const timeNow = Date.now() / 1000
-        const weekWeatherResponse = await axios.post(`http://localhost:3001/weather/new`, {
-          lat: coordOfSearched.coordinates.lat,
-          lng: coordOfSearched.coordinates.lng
-        })
-        const historicalWeatherResponse = await axios.post(`http://localhost:3001/weather/old`, {
-          lat: coordOfSearched.coordinates.lat,
-          lng: coordOfSearched.coordinates.lng,
-          time: timeNow
-          })
-      } catch (error) {
-        console.error(error)
-      }
-    }
-    if (coordOfSearched && coordOfSearched.coordinates && coordOfSearched.coordinates.lat) {
-      fetchData()
-    }
-  }, [placesOfSearched])
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       const timeNow = Date.now() / 1000
+  //       const weekWeatherResponse = await axios.post(`http://localhost:3001/weather/new`, {
+  //         lat: coordOfSearched.coordinates.lat,
+  //         lng: coordOfSearched.coordinates.lng
+  //       })
+  //       const historicalWeatherResponse = await axios.post(`http://localhost:3001/weather/old`, {
+  //         lat: coordOfSearched.coordinates.lat,
+  //         lng: coordOfSearched.coordinates.lng,
+  //         time: timeNow
+  //         })
+  //     } catch (error) {
+  //       console.error(error)
+  //     }
+  //   }
+  //   if (coordOfSearched && coordOfSearched.coordinates && coordOfSearched.coordinates.lat) {
+  //     fetchData()
+  //   }
+  // }, [allPlaces])
 
   useEffect(() => {
     try {
-      const placesDate = await axios.get(`http://localhost:3001/weather/new`)
-
+      const placesArray = [];
+      const placesData = await axios.get(`http://localhost:3001/users/${id}`)
+      for (let place of placesData.data.places) {
+        const placeObject = {
+          name: place.name,
+          latitude: parseFloat(place.latitude),
+          longitude: parseFloat(place.longitude)
+        }
+        placesArray.push(placeObject)
+      }
+      setAllPlaces(state => ({
+        places: [...allPlaces.places, ...placesArray]
+      }))    
     } catch (error) {
       console.error(error)
     }
-  }, [allPlaces])
+  }, [])
 
   return (<>
     <SearchBox
