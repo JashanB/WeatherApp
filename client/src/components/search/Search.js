@@ -81,7 +81,7 @@ const SearchBox = withScriptjs((props) => {
 
 export default (props) => {
   const [weather, setWeather] = useState({ weather: [] });
-  const [searched, setSearched] = useState({ places: [] })
+  const [onRender, setOnRender] = useState({ places: [] })
   const [allPlaces, setAllPlaces] = useState({ places: [] });
   const { id } = useParams();
 
@@ -131,7 +131,33 @@ export default (props) => {
     console.log('this is state', allPlaces)
     console.log('this is weather', weather)
   }, 5000)
-
+  
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const placesArray = [];
+        const placesData = await axios.get(`http://localhost:3001/users/${id}`)
+        for (let place of placesData.data.places) {
+          const placeObject = {
+            name: place.name,
+            id: place.id,
+            latitude: parseFloat(place.latitude),
+            longitude: parseFloat(place.longitude)
+          }
+          placesArray.push(placeObject)
+        }
+        setAllPlaces(state => ({
+          places: [...allPlaces.places, ...placesArray]
+        }))
+        setOnRender(state => ({
+          places: [...allPlaces.places, ...placesArray]
+        }))
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    fetchData();
+  }, [])
   //gets weather data for all places in database on load
   useEffect(() => {
     async function fetchData() {
@@ -168,7 +194,7 @@ export default (props) => {
       }
     }
     fetchData()
-  }, [])
+  }, [onRender])
 
   // //gets weather data only for new places added 
   // useEffect(() => {
@@ -208,29 +234,6 @@ export default (props) => {
   //   fetchData()
   // }, [searched])
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const placesArray = [];
-        const placesData = await axios.get(`http://localhost:3001/users/${id}`)
-        for (let place of placesData.data.places) {
-          const placeObject = {
-            name: place.name,
-            id: place.id,
-            latitude: parseFloat(place.latitude),
-            longitude: parseFloat(place.longitude)
-          }
-          placesArray.push(placeObject)
-        }
-        setAllPlaces(state => ({
-          places: [...allPlaces.places, ...placesArray]
-        }))
-      } catch (error) {
-        console.error(error)
-      }
-    }
-    fetchData();
-  }, [])
 
   return (<>
     <SearchBox
