@@ -11,7 +11,7 @@ class WeatherController < ApplicationController
   end
 
   def get_weather_new(latitude, longitude)
-    response = Excon.get("https://api.darksky.net/forecast/#{ENV['dark_sky']}/#{latitude},#{longitude}?exclude=currently,minutely,hourly,alerts,flags")
+    response = Excon.get("https://api.darksky.net/forecast/#{ENV['dark_sky']}/#{latitude},#{longitude}?exclude=minutely,alerts,flags")
     render :json => {
         data: response.body
       }

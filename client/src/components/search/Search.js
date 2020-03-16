@@ -80,9 +80,8 @@ const SearchBox = withScriptjs((props) => {
 )
 
 export default (props) => {
-  const [placesOfSearched, setPlacesOfSearched] = useState({});
-  const [coordOfSearched, setCoordOfSearched] = useState({});
-  const [weather, setWeather] = useState({});
+  const [weather, setWeather] = useState({ weather: [] });
+  const [searched, setSearched] = useState({ places: [] })
   const [allPlaces, setAllPlaces] = useState({ places: [] });
   const { id } = useParams();
 
@@ -97,14 +96,30 @@ export default (props) => {
           latitude: places[0].geometry.location.lat(),
           longitude: places[0].geometry.location.lng()
         })
+        const weekWeatherResponse = await axios.post(`http://localhost:3001/weather/new`, {
+          latitude: places[0].geometry.location.lat(),
+          longitude: places[0].geometry.location.lng()
+        })
         const placesObject = {
           name: places[0].name,
           id: placesData.data.place.id,
           latitude: places[0].geometry.location.lat(),
           longitude: places[0].geometry.location.lng()
         }
+        const weatherObject = {
+          name: places[0].name,
+          latitude: places[0].geometry.location.lat(),
+          longitude: places[0].geometry.location.lng(),
+          weatherData: JSON.parse(weekWeatherResponse.data.data)
+        }
         setAllPlaces(state => ({
           places: [...allPlaces.places, placesObject]
+        }))
+        // setSearched(state => ({
+        //   places: [...searched.places, placesObject]
+        // }))
+        setWeather(state => ({
+          weather: [...weather.weather, weatherObject]
         }))
       } catch (error) {
         console.error(error)
@@ -116,35 +131,81 @@ export default (props) => {
     console.log('this is state', allPlaces)
   }, 5000)
 
+  //gets weather data for all places in database on load
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const weatherArray = [];
+        const timeNow = Date.now() / 1000
+        //want to subtract 1 year from current time and get historical data for that - globy warming
+        //can go until get no response back from api 
+
+        //wouldnt it be cool if we made a graph using historical data for that week and the "this weeks data" and plotted it
+        for (let place of allPlaces.places) {
+          const weekWeatherResponse = await axios.post(`http://localhost:3001/weather/new`, {
+            latitude: place.latitude,
+            longitude: place.longitude
+          })
+          const weatherObject = {
+            name: place.name,
+            latitude: place.latitude,
+            longitude: place.longitude,
+            weatherData: JSON.parse(weekWeatherResponse.data.data)
+          }
+          weatherArray.push(weatherObject)
+        }
+        setWeather(state => ({
+          weather: weatherArray
+        }))
+        // const historicalWeatherResponse = await axios.post(`http://localhost:3001/weather/old`, {
+        //   lat: coordOfSearched.coordinates.lat,
+        //   lng: coordOfSearched.coordinates.lng,
+        //   time: timeNow
+        //   })
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    fetchData()
+  }, [])
+
+  // //gets weather data only for new places added 
   // useEffect(() => {
   //   async function fetchData() {
   //     try {
+  //       const weatherArray = [];
   //       const timeNow = Date.now() / 1000
   //       //want to subtract 1 year from current time and get historical data for that - globy warming
   //       //can go until get no response back from api 
 
-  //       //iterate through places array, call weather api for each entry 
-  //       //can save response objects to array with all weather data 
-  //       //
-  //       for (let place of allPlaces.places) {
+  //       //wouldnt it be cool if we made a graph using historical data for that week and the "this weeks data" and plotted it
+  //       for (let place of searched.places) {
   //         const weekWeatherResponse = await axios.post(`http://localhost:3001/weather/new`, {
   //           latitude: place.latitude,
   //           longitude: place.longitude
   //         })
+  //         const weatherObject = {
+  //           name: place.name,
+  //           latitude: place.latitude,
+  //           longitude: place.longitude,
+  //           weatherData: JSON.parse(weekWeatherResponse.data.data)
+  //         }
+  //         weatherArray.push(weatherObject)
   //       }
-  //       const historicalWeatherResponse = await axios.post(`http://localhost:3001/weather/old`, {
-  //         lat: coordOfSearched.coordinates.lat,
-  //         lng: coordOfSearched.coordinates.lng,
-  //         time: timeNow
-  //         })
+  //       setWeather(state => ({
+  //         weather: [...weather.weather, ...weatherArray]
+  //       }))
+  //       // const historicalWeatherResponse = await axios.post(`http://localhost:3001/weather/old`, {
+  //       //   lat: coordOfSearched.coordinates.lat,
+  //       //   lng: coordOfSearched.coordinates.lng,
+  //       //   time: timeNow
+  //       //   })
   //     } catch (error) {
   //       console.error(error)
   //     }
   //   }
-  //   if (coordOfSearched && coordOfSearched.coordinates && coordOfSearched.coordinates.lat) {
-  //     fetchData()
-  //   }
-  // }, [allPlaces])
+  //   fetchData()
+  // }, [searched])
 
   useEffect(() => {
     async function fetchData() {
