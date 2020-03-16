@@ -129,6 +129,7 @@ export default (props) => {
   }
   setTimeout(function () {
     console.log('this is state', allPlaces)
+    console.log('this is weather', weather)
   }, 5000)
 
   //gets weather data for all places in database on load
