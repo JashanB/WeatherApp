@@ -243,8 +243,9 @@ export default (props) => {
       onPlacesChanged={onPlacesChanged}
       onSearchBoxMounted={onSearchBoxMounted}
     />
-    {/* <WeatherList
-      items={"Needs to be passed down names of places searched and weather data"}
-    /> */}
+    <WeatherList
+      // items={"Needs to be passed down names of places searched and weather data"}
+      weatherData={weather}
+    />
   </>)
 }
