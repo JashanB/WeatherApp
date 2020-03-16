@@ -11,7 +11,7 @@ import axios from 'axios';
 //   useParams
 // } from "react-router-dom";
 import './Search.css';
-// import WeatherList from '../weatherList'
+import WeatherList from '../weatherList'
 import {
   BrowserRouter as Router,
   Switch,

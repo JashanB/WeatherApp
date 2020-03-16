@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import WeatherListItem from '../weatherListItem'
 
 export default (props) => {
   const places = props.weatherData.weather.map(place => <WeatherListItem
@@ -12,7 +13,7 @@ export default (props) => {
 
     return (
       <ul>
-        places
+        {places}
       </ul>
     )
 }
