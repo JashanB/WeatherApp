@@ -1,9 +1,19 @@
 class PlacesController < ApplicationController
-  def show
+  def index
     puts "params!!! #{params}"
     user_id = params[:id]
     puts "params!!! #{user_id}"
     @places = Place.where(user_id: user_id)
+    render :json => {
+      places: @places
+    }
+  end
+
+  def show
+    puts "params!!! #{params}"
+    place_id = params[:id]
+    puts "params!!! #{place_id}"
+    @places = Place.where(id: place_id)
     render :json => {
       places: @places
     }
