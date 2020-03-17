@@ -3,6 +3,7 @@ import WeatherListItem from '../weatherListItem'
 
 export default (props) => {
   const places = props.weatherData.weather.map(place => <WeatherListItem
+    key={place.id}
     name={place.name}
     currentTemp={place.weatherData.currently.temperature} 
     feelsLike={place.weatherData.currently.apparentTemperature} 

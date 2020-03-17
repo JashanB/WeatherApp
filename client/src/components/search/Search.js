@@ -30,7 +30,7 @@ const Input = (props) => {
   return (
     <input
       type="text"
-      placeholder="Customized your placeholder"
+      placeholder="Search for your location"
       style={{
         boxSizing: `border-box`,
         border: `1px solid transparent`,
@@ -108,6 +108,7 @@ export default (props) => {
         }
         const weatherObject = {
           name: places[0].name,
+          id: placesData.data.place.id,
           latitude: places[0].geometry.location.lat(),
           longitude: places[0].geometry.location.lng(),
           weatherData: JSON.parse(weekWeatherResponse.data.data)
@@ -175,6 +176,7 @@ export default (props) => {
           })
           const weatherObject = {
             name: place.name,
+            id: place.id,
             latitude: place.latitude,
             longitude: place.longitude,
             weatherData: JSON.parse(weekWeatherResponse.data.data)
@@ -195,46 +197,7 @@ export default (props) => {
     }
     fetchData()
   }, [onRender])
-
-  // //gets weather data only for new places added 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     try {
-  //       const weatherArray = [];
-  //       const timeNow = Date.now() / 1000
-  //       //want to subtract 1 year from current time and get historical data for that - globy warming
-  //       //can go until get no response back from api 
-
-  //       //wouldnt it be cool if we made a graph using historical data for that week and the "this weeks data" and plotted it
-  //       for (let place of searched.places) {
-  //         const weekWeatherResponse = await axios.post(`http://localhost:3001/weather/new`, {
-  //           latitude: place.latitude,
-  //           longitude: place.longitude
-  //         })
-  //         const weatherObject = {
-  //           name: place.name,
-  //           latitude: place.latitude,
-  //           longitude: place.longitude,
-  //           weatherData: JSON.parse(weekWeatherResponse.data.data)
-  //         }
-  //         weatherArray.push(weatherObject)
-  //       }
-  //       setWeather(state => ({
-  //         weather: [...weather.weather, ...weatherArray]
-  //       }))
-  //       // const historicalWeatherResponse = await axios.post(`http://localhost:3001/weather/old`, {
-  //       //   lat: coordOfSearched.coordinates.lat,
-  //       //   lng: coordOfSearched.coordinates.lng,
-  //       //   time: timeNow
-  //       //   })
-  //     } catch (error) {
-  //       console.error(error)
-  //     }
-  //   }
-  //   fetchData()
-  // }, [searched])
-
-
+  
   return (<>
     <SearchBox
       googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}
