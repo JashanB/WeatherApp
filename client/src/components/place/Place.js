@@ -21,11 +21,12 @@ export default (props) => {
     async function fetchData() {
       try {
         const placesData = await axios.get(`http://localhost:3001/users/${user_id}/places/${place_id}`)
+        console.log("get", placesData)
         const placeObject = {
-          name: placesData.data.places.name,
-          id: placesData.data.places.id,
-          latitude: parseFloat(placesData.data.places.latitude),
-          longitude: parseFloat(placesData.data.places.longitude)
+          name: placesData.data.places[0].name,
+          id: placesData.data.places[0].id,
+          latitude: parseFloat(placesData.data.places[0].latitude),
+          longitude: parseFloat(placesData.data.places[0].longitude)
         }
         setPlace(state => ({
           places: placeObject
@@ -49,7 +50,7 @@ export default (props) => {
 
         //wouldnt it be cool if we made a graph using historical data for that week and the "this weeks data" and plotted it
 
-
+        console.log("place places", place)
         const weekWeatherResponse = await axios.post(`http://localhost:3001/weather/new`, {
           latitude: place.places.latitude,
           longitude: place.places.longitude
@@ -80,7 +81,7 @@ export default (props) => {
 
   return (
     <>
-      <Hourly weatherData={weather.weather.weatherData}/>
+      {weather.weather && weather.weather.weatherData && <Hourly weatherData={weather.weather.weatherData}/>}
     </>
   )
 
