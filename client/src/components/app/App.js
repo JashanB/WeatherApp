@@ -17,10 +17,10 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <h1> Search box</h1>
-          {/* <Search /> */}
-          <Route path='/users/:id' render={(props) => <Search {...props}/>}/>
-          <Route path='/users/:user_id/places/:id' render={(props) => <Place {...props}/>}/>
+          <Switch>
+            <Route path='/users/:user_id/places/:id' render={(props) => <Place {...props} />} />
+            <Route path='/users/:id' render={(props) => <Search {...props} />} />
+          </Switch>
         </div>
       </Router>
     );
