@@ -7,14 +7,13 @@ import {
   useParams
 } from "react-router-dom";
 import axios from 'axios';
+import Hourly from '../hourly'
 
 export default (props) => {
-  const [weather, setWeather] = useState({ weather: [] });
+  const [weather, setWeather] = useState({});
   const [onRender, setOnRender] = useState({})
   const [place, setPlace] = useState({});
   const { id } = useParams();
-  console.log(props.match.params)
-  console.log('ID ', id)
   const user_id = props.match.params.user_id
   const place_id = props.match.params.id
 
@@ -50,6 +49,7 @@ export default (props) => {
 
         //wouldnt it be cool if we made a graph using historical data for that week and the "this weeks data" and plotted it
 
+
         const weekWeatherResponse = await axios.post(`http://localhost:3001/weather/new`, {
           latitude: place.places.latitude,
           longitude: place.places.longitude
@@ -73,13 +73,15 @@ export default (props) => {
         console.error(error)
       }
     }
-    fetchData()
+    if (place && place.places) {
+      fetchData()
+    }
   }, [onRender])
 
   return (
-    <div>
-      Im here
-    </div>
+    <>
+      <Hourly weatherData={weather.weather.weatherData}/>
+    </>
   )
 
 
