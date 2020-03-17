@@ -11,8 +11,12 @@ const setIcon = function (icon) {
   return object
 }
 
-const currentTemp = ((props.currentTemp - 32) * 5 / 9).toFixed(1)
+const currentTemp =((props.currentTemp - 32) * 5 / 9).toFixed(1)
 const apparentTemp = ((props.feelsLike - 32) * 5 / 9).toFixed(1)
+
+const toCelsius = function(num) {
+  const temp = ((num - 32) * 5/9 ).toFixed(1)
+}
 //set icon
 
 
@@ -28,21 +32,23 @@ export default (props) => {
     const replacedName = iconName.replace(/-/g, "_")
     const iconObject = setIcon(replacedName)
 
-    
 
+    
     return (
       <div>
+        <h2>{formattedTime}</h2>
         <ReactAnimatedWeather
           className={"weather-icon"}
           icon={iconObject.icon}
           size={iconObject.size}
           animate={iconObject.animate}
         />
+         <h3>{toCelsius(hourly.temperature)}°C</h3><h3>({toCelsius(hourly.temperature)}°C)</h3>
       </div>
     )
   })
   return (
     <div>
-
+      hourlyWeather
     </div>)
 }
