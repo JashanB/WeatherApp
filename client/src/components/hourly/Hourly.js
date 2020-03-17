@@ -16,7 +16,7 @@ const toCelsius = function (num) {
 }
 //set icon
 
-
+let setter = 1;
 export default (props) => {
   console.log("props here", props)
   if (props.weatherData && props.weatherData.hourly) {
@@ -24,14 +24,23 @@ export default (props) => {
       console.log("hourly", hourly)
       //format time
       const date = new Date(hourly.time * 1000)
+      console.log('date', date)
       const hours = date.getHours();
-      const minutes = date.getMinutes();
-      const formattedTime = hours + ':' + minutes.substr(-2)
+      console.log('hours', hours)
+
+      let minutes = date.getMinutes();
+      if (minutes === 0) {
+        minutes = "00"
+      }
+      console.log('minutes', minutes)
+
+      const formattedTime = hours + ':' + minutes
+      console.log(formattedTime)
       //set icon
       const iconName = hourly.icon.toUpperCase()
       const replacedName = iconName.replace(/-/g, "_")
       const iconObject = setIcon(replacedName)
-
+      setter = 2
 
 
       return (
@@ -50,6 +59,6 @@ export default (props) => {
   }
   return (
     <div>
-      {props.weatherData && props.weatherData.hourly && hourlyWeather}
+      {props.weatherData && props.weatherData.hourly && setter === 2 && hourlyWeather}
     </div>)
 }
