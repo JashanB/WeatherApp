@@ -9,6 +9,7 @@ import {
 import axios from 'axios';
 import Hourly from '../hourly'
 import Weekly from '../weekly'
+import Graph from '../graph'
 
 export default (props) => {
   const [weather, setWeather] = useState({});
@@ -63,6 +64,13 @@ export default (props) => {
           longitude: place.places.longitude,
           weatherData: JSON.parse(weekWeatherResponse.data.data)
         }
+        const historicalWeather = weatherObject.weatherData.daily.data.map(function (day, index) {
+          const historicalWeatherResponse = await axios.post(`http://localhost:3001/weather/old`, {
+            lat: coordOfSearched.coordinates.lat,
+            lng: coordOfSearched.coordinates.lng,
+            time: timeNow
+          })
+        })
         setWeather(state => ({
           weather: weatherObject
         }))
@@ -82,8 +90,8 @@ export default (props) => {
 
   return (
     <>
-      {weather.weather && weather.weather.weatherData && <Hourly name={weather.weather.name} weatherData={weather.weather.weatherData}/>}
-      {weather.weather && weather.weather.weatherData && <Weekly weatherData={weather.weather.weatherData}/>}
+      {weather.weather && weather.weather.weatherData && <Hourly name={weather.weather.name} weatherData={weather.weather.weatherData} />}
+      {weather.weather && weather.weather.weatherData && <Weekly weatherData={weather.weather.weatherData} />}
     </>
   )
 

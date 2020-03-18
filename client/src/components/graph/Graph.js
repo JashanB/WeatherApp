@@ -1,13 +1,16 @@
 const React = require('react');
 const Component = React.Component;
-const CanvasJSReact = require('./canvasjs.react');
+const CanvasJSReact = require('../../canvasjs.react');
 const CanvasJS = CanvasJSReact.CanvasJS;
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-// const onRef = {ref => this.chart = ref}
-
-export default (props) => {
-  render() {
+class Graph extends Component {
+  eachContributor = () => {
+    return this.props.contributors.map(contributor => {
+      return { label: contributor.org_name, y: parseInt(contributor.total) };
+    });
+  };
+	render() {
 		const options = {
 			animationEnabled: true,
 			exportEnabled: true,
@@ -54,8 +57,7 @@ export default (props) => {
 					{ x: 23, y: 59 }
 				]
 			}]
-    }
-  }
+		}
 		return (
 		<div>
 			<CanvasJSChart options = {options}
@@ -65,3 +67,5 @@ export default (props) => {
 		</div>
 		);
 	}
+}
+export default Graph;
