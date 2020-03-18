@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import ReactAnimatedWeather from 'react-animated-weather';
 import HourlyItem from "../hourlyItem"
+import './Hourly.css';
+
 
 const toCelsius = function (num) {
   const temp = ((num - 32) * 5 / 9).toFixed(1)
+  return temp
 }
 //set icon
 
@@ -32,7 +35,8 @@ export default (props) => {
       )
     })
   return (
-    <ul>
+    <ul className="hourly-list">
+      {props.name}
       {hourlyWeather}
     </ul>)
 }

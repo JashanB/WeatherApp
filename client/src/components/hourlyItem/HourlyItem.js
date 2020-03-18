@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ReactAnimatedWeather from 'react-animated-weather';
+import './HourlyItem.css';
+
 
 const setIcon = function (icon) {
   let object = {
@@ -12,8 +14,9 @@ const setIcon = function (icon) {
 
 export default (props) => {
   const iconObject = setIcon(props.icon)
+  // console.log('item props', props)
   return (
-    <div>
+    <div className="hourly-item">
       <h2>{props.time}</h2>
       <h3>{props.temp}°C</h3>
       <h3>({props.feelsLike}°C)</h3>
