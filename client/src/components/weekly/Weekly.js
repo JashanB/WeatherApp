@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ReactAnimatedWeather from 'react-animated-weather';
 import HourlyItem from "../hourlyItem"
 import './Weekly.css';
+import WeeklyItem from "../weeklyItem"
 
 const toCelsius = function (num) {
   const temp = ((num - 32) * 5 / 9).toFixed(1)
@@ -15,8 +16,9 @@ export default (props) => {
       //format time
       const date = new Date(day.time * 1000)
       const formattedTime = date.toDateString();
+      console.log('time', formattedTime)
       //set icon
-      const iconName = hourly.icon.toUpperCase()
+      const iconName = day.icon.toUpperCase()
       const replacedName = iconName.replace(/-/g, "_")
       // const iconObject = setIcon(replacedName)
       return ( <WeeklyItem 

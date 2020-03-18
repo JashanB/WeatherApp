@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import ReactAnimatedWeather from 'react-animated-weather';
-import './HourlyItem.css';
+import './WeeklyItem.css';
 
 
 const setIcon = function (icon) {
@@ -14,7 +14,7 @@ const setIcon = function (icon) {
 
 export default (props) => {
   const iconObject = setIcon(props.icon)
-  // console.log('item props', props)
+  console.log('item props', props)
   return (
     <div className="hourly-item">
       <h2>{props.day}</h2>
