@@ -83,7 +83,7 @@ export default (props) => {
   return (
     <>
       {weather.weather && weather.weather.weatherData && <Hourly name={weather.weather.name} weatherData={weather.weather.weatherData}/>}
-      {weather.weather && weather.weather.weatherData && <Weekly weatherData={weather.weather.weatherData}/>}
+      {/* {weather.weather && weather.weather.weatherData && <Weekly weatherData={weather.weather.weatherData}/>} */}
     </>
   )
 
