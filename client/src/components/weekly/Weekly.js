@@ -31,7 +31,7 @@ export default (props) => {
       )
     })
   return (
-    <ul className="weekly-list">
+    <li className="weekly-list">
       {weeklyWeather}
-    </ul>)
+    </li>)
 }
