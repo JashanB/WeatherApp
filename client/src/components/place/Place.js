@@ -65,6 +65,7 @@ export default (props) => {
           weatherData: JSON.parse(weekWeatherResponse.data.data)
         }
         const historicalWeather = weatherObject.weatherData.daily.data.map(function (day, index) {
+          //use index to create multiple of a year subtraction
           const historicalWeatherResponse = await axios.post(`http://localhost:3001/weather/old`, {
             lat: coordOfSearched.coordinates.lat,
             lng: coordOfSearched.coordinates.lng,
