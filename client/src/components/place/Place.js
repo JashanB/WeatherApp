@@ -14,7 +14,7 @@ import Graph from '../graph'
 export default (props) => {
   const [weather, setWeather] = useState({});
   const [onRender, setOnRender] = useState({})
-  const [historicalWeather, setHistoricalWeather] = useState({hisWeather: []})
+  const [historicalWeather, setHistoricalWeather] = useState({ hisWeather: [] })
   const [place, setPlace] = useState({});
   const { id } = useParams();
   const user_id = props.match.params.user_id
@@ -45,6 +45,18 @@ export default (props) => {
   }, [])
   //gets weather data for all places in database on load
   useEffect(() => {
+    async function fetchHistorical(lat, lng, time) {
+      try {
+        const historicalWeatherResponse = await axios.post(`http://localhost:3001/weather/old`, {
+          lat: lat,
+          lng: lng,
+          time: time
+        })
+
+      } catch (error) {
+        console.error(error)
+      }
+    }
     async function fetchData() {
       try {
         let yearOfWeather = 1
@@ -59,7 +71,14 @@ export default (props) => {
           longitude: place.places.longitude,
           weatherData: JSON.parse(weekWeatherResponse.data.data)
         }
-        // const historicalWeather = weatherObject.weatherData.daily.data.map(function (day, index) {
+        const historicalWeather = weatherObject.weatherData.daily.data.map(function (day, index) {
+          const queryTime = day.time - 31556926
+          fetchHistorical(weatherObject.latitude, weatherObject.longitude, queryTime)
+        })
+        setWeather(state => ({
+          weather: weatherObject
+        }))
+           // const historicalWeather = weatherObject.weatherData.daily.data.map(function (day, index) {
         //   //use index to create multiple of a year subtraction
         //   // const minusTime = index * 31556926
         //   const queryTime = day.time - 31556926
@@ -70,14 +89,6 @@ export default (props) => {
         //     time: queryTime
         //   })
         // })
-        setWeather(state => ({
-          weather: weatherObject
-        }))
-        // const historicalWeatherResponse = await axios.post(`http://localhost:3001/weather/old`, {
-        //   lat: coordOfSearched.coordinates.lat,
-        //   lng: coordOfSearched.coordinates.lng,
-        //   time: timeNow
-        //   })
       } catch (error) {
         console.error(error)
       }
@@ -89,29 +100,29 @@ export default (props) => {
 
   useEffect(() => {
     async function fetchHistorical(lat, lng, time) {
+      try {
         const historicalWeatherResponse = await axios.post(`http://localhost:3001/weather/old`, {
           lat: lat,
           lng: lng,
           time: time
         })
-      }
-      try {
 
       } catch (error) {
         console.error(error)
       }
     }
-    if (weather && weather.weather) {
-      fetchHistorical()
-    }
+  
+    // if (weather && weather.weather) {
+    //   fetchHistorical()
+    // }
   }, [weather])
 
-  return (
-    <>
-      {weather.weather && weather.weather.weatherData && <Hourly name={weather.weather.name} weatherData={weather.weather.weatherData} />}
-      {weather.weather && weather.weather.weatherData && <Weekly weatherData={weather.weather.weatherData} />}
-    </>
-  )
+return (
+  <>
+    {weather.weather && weather.weather.weatherData && <Hourly name={weather.weather.name} weatherData={weather.weather.weatherData} />}
+    {weather.weather && weather.weather.weatherData && <Weekly weatherData={weather.weather.weatherData} />}
+  </>
+)
 
 
 
