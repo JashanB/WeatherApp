@@ -59,7 +59,6 @@ export default (props) => {
     }
     async function fetchData() {
       try {
-        let yearOfWeather = 1
         const weekWeatherResponse = await axios.post(`http://localhost:3001/weather/new`, {
           latitude: place.places.latitude,
           longitude: place.places.longitude
@@ -71,14 +70,23 @@ export default (props) => {
           longitude: place.places.longitude,
           weatherData: JSON.parse(weekWeatherResponse.data.data)
         }
-        const historicalWeather = weatherObject.weatherData.daily.data.map(function (day, index) {
-          const queryTime = day.time - 31556926
-          fetchHistorical(weatherObject.latitude, weatherObject.longitude, queryTime)
-        })
+        for (let i = 0; i <= 5; i++) {
+          if (i === 0) {
+            const historicalWeather = weatherObject.weatherData.daily.data.map(function (day, index) {
+              const queryTime = day.time - 31556926
+              fetchHistorical(weatherObject.latitude, weatherObject.longitude, queryTime)
+            })
+          } else {
+            const historicalWeather = weatherObject.weatherData.daily.data.map(function (day, index) {
+              const queryTime = day.time - (31556926 * i)
+              fetchHistorical(weatherObject.latitude, weatherObject.longitude, queryTime)
+            })
+          }
+        }
         setWeather(state => ({
           weather: weatherObject
         }))
-           // const historicalWeather = weatherObject.weatherData.daily.data.map(function (day, index) {
+        // const historicalWeather = weatherObject.weatherData.daily.data.map(function (day, index) {
         //   //use index to create multiple of a year subtraction
         //   // const minusTime = index * 31556926
         //   const queryTime = day.time - 31556926
@@ -111,18 +119,18 @@ export default (props) => {
         console.error(error)
       }
     }
-  
+
     // if (weather && weather.weather) {
     //   fetchHistorical()
     // }
   }, [weather])
 
-return (
-  <>
-    {weather.weather && weather.weather.weatherData && <Hourly name={weather.weather.name} weatherData={weather.weather.weatherData} />}
-    {weather.weather && weather.weather.weatherData && <Weekly weatherData={weather.weather.weatherData} />}
-  </>
-)
+  return (
+    <>
+      {weather.weather && weather.weather.weatherData && <Hourly name={weather.weather.name} weatherData={weather.weather.weatherData} />}
+      {weather.weather && weather.weather.weatherData && <Weekly weatherData={weather.weather.weatherData} />}
+    </>
+  )
 
 
 
