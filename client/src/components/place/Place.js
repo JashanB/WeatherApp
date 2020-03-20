@@ -45,14 +45,24 @@ export default (props) => {
   }, [])
   //gets weather data for all places in database on load
   useEffect(() => {
-    async function fetchHistorical(lat, lng, time) {
+    async function fetchHistorical(lat, lng, time, index) {
       try {
+        const hisWeatherArray = [];
         const historicalWeatherResponse = await axios.post(`http://localhost:3001/weather/old`, {
           lat: lat,
           lng: lng,
           time: time
         })
-
+        if (historicalWeatherResponse.status === 200 && historicalWeatherResponse.statusText === "OK") {
+          const dataObject = {
+            index: index,
+            data: JSON.parse(historicalWeatherResponse.data.data.daily.data[0])
+          }
+          hisWeatherArray.push(dataObject)
+        }
+        setHistoricalWeather(state => ({
+          hisWeather: [...hisWeather, ...hisWeatherArray]
+        }))
       } catch (error) {
         console.error(error)
       }
@@ -74,12 +84,12 @@ export default (props) => {
           if (i === 0) {
             const historicalWeather = weatherObject.weatherData.daily.data.map(function (day, index) {
               const queryTime = day.time - 31556926
-              fetchHistorical(weatherObject.latitude, weatherObject.longitude, queryTime)
+              fetchHistorical(weatherObject.latitude, weatherObject.longitude, queryTime, 0)
             })
           } else {
             const historicalWeather = weatherObject.weatherData.daily.data.map(function (day, index) {
               const queryTime = day.time - (31556926 * i)
-              fetchHistorical(weatherObject.latitude, weatherObject.longitude, queryTime)
+              fetchHistorical(weatherObject.latitude, weatherObject.longitude, queryTime, i)
             })
           }
         }
