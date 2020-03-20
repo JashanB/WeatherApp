@@ -47,13 +47,7 @@ export default (props) => {
   useEffect(() => {
     async function fetchData() {
       try {
-        // const timeNow = Date.now() / 1000
-        //want to subtract 1 year from current time and get historical data for that - globy warming
-        //can go until get no response back from api 
-
-        //wouldnt it be cool if we made a graph using historical data for that week and the "this weeks data" and plotted it
-
-        console.log("place places", place)
+        let yearOfWeather = 1
         const weekWeatherResponse = await axios.post(`http://localhost:3001/weather/new`, {
           latitude: place.places.latitude,
           longitude: place.places.longitude
@@ -67,14 +61,13 @@ export default (props) => {
         }
         const historicalWeather = weatherObject.weatherData.daily.data.map(function (day, index) {
           //use index to create multiple of a year subtraction
-          const minusTime = index * 31556926
-          const timeNow = Date.now() / 1000
-          const queryTime = timeNow - minusTime
+          // const minusTime = index * 31556926
+          const queryTime = day.time - 31556926
 
           const historicalWeatherResponse = await axios.post(`http://localhost:3001/weather/old`, {
             lat: coordOfSearched.coordinates.lat,
             lng: coordOfSearched.coordinates.lng,
-            time: timeNow
+            time: queryTime
           })
         })
         setWeather(state => ({
