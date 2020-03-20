@@ -59,17 +59,17 @@ export default (props) => {
           longitude: place.places.longitude,
           weatherData: JSON.parse(weekWeatherResponse.data.data)
         }
-        const historicalWeather = weatherObject.weatherData.daily.data.map(function (day, index) {
-          //use index to create multiple of a year subtraction
-          // const minusTime = index * 31556926
-          const queryTime = day.time - 31556926
+        // const historicalWeather = weatherObject.weatherData.daily.data.map(function (day, index) {
+        //   //use index to create multiple of a year subtraction
+        //   // const minusTime = index * 31556926
+        //   const queryTime = day.time - 31556926
 
-          const historicalWeatherResponse = await axios.post(`http://localhost:3001/weather/old`, {
-            lat: coordOfSearched.coordinates.lat,
-            lng: coordOfSearched.coordinates.lng,
-            time: queryTime
-          })
-        })
+        //   const historicalWeatherResponse = await axios.post(`http://localhost:3001/weather/old`, {
+        //     lat: coordOfSearched.coordinates.lat,
+        //     lng: coordOfSearched.coordinates.lng,
+        //     time: queryTime
+        //   })
+        // })
         setWeather(state => ({
           weather: weatherObject
         }))
@@ -86,6 +86,25 @@ export default (props) => {
       fetchData()
     }
   }, [onRender])
+
+  useEffect(() => {
+    async function fetchHistorical(lat, lng, time) {
+        const historicalWeatherResponse = await axios.post(`http://localhost:3001/weather/old`, {
+          lat: lat,
+          lng: lng,
+          time: time
+        })
+      }
+      try {
+
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    if (weather && weather.weather) {
+      fetchHistorical()
+    }
+  }, [weather])
 
   return (
     <>
