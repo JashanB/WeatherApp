@@ -14,6 +14,7 @@ import Graph from '../graph'
 export default (props) => {
   const [weather, setWeather] = useState({});
   const [onRender, setOnRender] = useState({})
+  const [historicalWeather, setHistoricalWeather] = useState({hisWeather: []})
   const [place, setPlace] = useState({});
   const { id } = useParams();
   const user_id = props.match.params.user_id
@@ -66,6 +67,10 @@ export default (props) => {
         }
         const historicalWeather = weatherObject.weatherData.daily.data.map(function (day, index) {
           //use index to create multiple of a year subtraction
+          const minusTime = index * 31556926
+          const timeNow = Date.now() / 1000
+          const queryTime = timeNow - minusTime
+
           const historicalWeatherResponse = await axios.post(`http://localhost:3001/weather/old`, {
             lat: coordOfSearched.coordinates.lat,
             lng: coordOfSearched.coordinates.lng,
