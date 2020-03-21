@@ -1,33 +1,15 @@
-const React = require('react');
-const Component = React.Component;
-const CanvasJSReact = require('../../canvasjs.react');
+import React, { useEffect, useState } from 'react'
+import CanvasJSReact from '../../canvasjs.react';
 const CanvasJS = CanvasJSReact.CanvasJS;
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-class Graph extends Component {
-  eachContributor = () => {
-    return this.props.contributors.map(contributor => {
-      return { label: contributor.org_name, y: parseInt(contributor.total) };
-    });
-	};
-	
-	render() {
-		let setNumber = this.props.pastYears
-		const yearMinus1 = [];
-		const yearMinus2 = [];
-		const yearMinus3 = [];
-		const yearMinus4 = [];
-		const yearMinus5 = [];
-		const yearMinus6 = [];
-		const yearMinus7 = [];
-		const yearMinus8 = [];
-		const yearMinus9 = [];
-		const yearMinus10 = [];
-		for (day of this.props.historicalData.hisWeather) {
-			if (day.index === 1) {
-				yearMinus1.push(day.data)
-			}
-		}
+export default (props) => {
+  // eachContributor = () => {
+  //   return this.props.contributors.map(contributor => {
+  //     return { label: contributor.org_name, y: parseInt(contributor.total) };
+  //   });
+	// };
+		let setNumber = props.pastYears
 		const options = {
 			animationEnabled: true,
 			exportEnabled: true,
@@ -78,11 +60,10 @@ class Graph extends Component {
 		return (
 		<div>
 			<CanvasJSChart options = {options}
-				/* onRef={ref => this.chart = ref} */
+				// {/* /* onRef={ref => this.chart = ref} */ */}
 			/>
 			{/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
 		</div>
 		);
-	}
+	
 }
-export default Graph;
