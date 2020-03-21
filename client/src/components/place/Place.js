@@ -19,6 +19,7 @@ export default (props) => {
   const { id } = useParams();
   const user_id = props.match.params.user_id
   const place_id = props.match.params.id
+  const goIntoPastByXYears = 2
 
   useEffect(() => {
     async function fetchData() {
@@ -44,24 +45,31 @@ export default (props) => {
     fetchData();
   }, [])
   //gets weather data for all places in database on load
+  const hisWeatherArray = [];
   useEffect(() => {
     async function fetchHistorical(lat, lng, time, index) {
       try {
-        const hisWeatherArray = [];
         const historicalWeatherResponse = await axios.post(`http://localhost:3001/weather/old`, {
-          lat: lat,
-          lng: lng,
+          latitude: lat,
+          longitude: lng,
           time: time
         })
         if (historicalWeatherResponse.status === 200 && historicalWeatherResponse.statusText === "OK") {
+          const data = JSON.parse(historicalWeatherResponse.data.data)
+          console.log('his weather response', {data})
           const dataObject = {
             index: index,
-            data: JSON.parse(historicalWeatherResponse.data.data.daily.data[0])
+            data: data.daily.data[0]
+          }
+          hisWeatherArray.push(dataObject)
+        } else {
+          const dataObject = {
+            index: 100
           }
           hisWeatherArray.push(dataObject)
         }
         setHistoricalWeather(state => ({
-          hisWeather: [...hisWeather, ...hisWeatherArray]
+          hisWeather: [...historicalWeather.hisWeather, ...hisWeatherArray]
         }))
       } catch (error) {
         console.error(error)
@@ -80,33 +88,16 @@ export default (props) => {
           longitude: place.places.longitude,
           weatherData: JSON.parse(weekWeatherResponse.data.data)
         }
-        for (let i = 0; i <= 5; i++) {
-          if (i === 0) {
-            const historicalWeather = weatherObject.weatherData.daily.data.map(function (day, index) {
-              const queryTime = day.time - 31556926
-              fetchHistorical(weatherObject.latitude, weatherObject.longitude, queryTime, 0)
-            })
-          } else {
-            const historicalWeather = weatherObject.weatherData.daily.data.map(function (day, index) {
-              const queryTime = day.time - (31556926 * i)
-              fetchHistorical(weatherObject.latitude, weatherObject.longitude, queryTime, i)
-            })
-          }
+        for (let i = 1; i <= goIntoPastByXYears; i++) {
+          //where i <= is the # of years the call will go back 
+          const getHistoricalWeather = weatherObject.weatherData.daily.data.map(function (day) {
+            const queryTime = day.time - (31556926 * i)
+            fetchHistorical(weatherObject.latitude, weatherObject.longitude, queryTime, i)
+          })
         }
         setWeather(state => ({
           weather: weatherObject
         }))
-        // const historicalWeather = weatherObject.weatherData.daily.data.map(function (day, index) {
-        //   //use index to create multiple of a year subtraction
-        //   // const minusTime = index * 31556926
-        //   const queryTime = day.time - 31556926
-
-        //   const historicalWeatherResponse = await axios.post(`http://localhost:3001/weather/old`, {
-        //     lat: coordOfSearched.coordinates.lat,
-        //     lng: coordOfSearched.coordinates.lng,
-        //     time: queryTime
-        //   })
-        // })
       } catch (error) {
         console.error(error)
       }
@@ -135,10 +126,15 @@ export default (props) => {
     // }
   }, [weather])
 
+  setTimeout(function () {
+    console.log('this is his weather', historicalWeather)
+  }, 5000)
+
   return (
     <>
       {weather.weather && weather.weather.weatherData && <Hourly name={weather.weather.name} weatherData={weather.weather.weatherData} />}
       {weather.weather && weather.weather.weatherData && <Weekly weatherData={weather.weather.weatherData} />}
+      {weather.weather && weather.weather.weatherData && <Graph pastYears={goIntoPastByXYears} historicalData={historicalWeather} weatherData={weather.weather.weatherData} />}
     </>
   )
 
