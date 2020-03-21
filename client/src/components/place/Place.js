@@ -14,7 +14,7 @@ import Graph from '../graph'
 export default (props) => {
   const [weather, setWeather] = useState({});
   const [onRender, setOnRender] = useState({})
-  const [historicalWeather, setHistoricalWeather] = useState({ hisWeather: [] })
+  const [historicalWeather, setHistoricalWeather] = useState({})
   const [place, setPlace] = useState({});
   const { id } = useParams();
   const user_id = props.match.params.user_id
@@ -45,7 +45,8 @@ export default (props) => {
     fetchData();
   }, [])
   //gets weather data for all places in database on load
-  const hisWeatherArray = [];
+  // const hisWeatherArray = [];
+  let hisWeatherObject = {};
   useEffect(() => {
     async function fetchHistorical(lat, lng, time, index) {
       try {
@@ -56,20 +57,31 @@ export default (props) => {
         })
         if (historicalWeatherResponse.status === 200 && historicalWeatherResponse.statusText === "OK") {
           const data = JSON.parse(historicalWeatherResponse.data.data)
-          console.log('his weather response', {data})
-          const dataObject = {
-            index: index,
-            data: data.daily.data[0]
+          // console.log('his weather response', {data})
+          // const dataObject = {
+          //   index: index,
+          //   data: data.daily.data[0]
+          // }
+          // hisWeatherObject[index] = []
+          // hisWeatherArray.push(dataObject)
+          if (hisWeatherObject[index] && hisWeatherObject[index].length >0) {
+            hisWeatherObject[index].push(data.daily.data[0])
+          } else {
+            hisWeatherObject[index] = []
+            hisWeatherObject[index].push(data.daily.data[0])
           }
-          hisWeatherArray.push(dataObject)
-        } else {
-          const dataObject = {
-            index: 100
-          }
-          hisWeatherArray.push(dataObject)
-        }
+        } 
+        // else {
+        //   const dataObject = {
+        //     index: 100
+        //   }
+        //   hisWeatherArray.push(dataObject)
+        // }
+        // setHistoricalWeather(state => ({
+        //   hisWeather: [...historicalWeather.hisWeather, ...hisWeatherArray]
+        // }))
         setHistoricalWeather(state => ({
-          hisWeather: [...historicalWeather.hisWeather, ...hisWeatherArray]
+          hisWeather: hisWeatherObject
         }))
       } catch (error) {
         console.error(error)
@@ -92,7 +104,7 @@ export default (props) => {
           //where i <= is the # of years the call will go back 
           const getHistoricalWeather = weatherObject.weatherData.daily.data.map(function (day) {
             const queryTime = day.time - (31556926 * i)
-            fetchHistorical(weatherObject.latitude, weatherObject.longitude, queryTime, i)
+            // fetchHistorical(weatherObject.latitude, weatherObject.longitude, queryTime, i)
           })
         }
         setWeather(state => ({
@@ -106,25 +118,6 @@ export default (props) => {
       fetchData()
     }
   }, [onRender])
-
-  useEffect(() => {
-    async function fetchHistorical(lat, lng, time) {
-      try {
-        const historicalWeatherResponse = await axios.post(`http://localhost:3001/weather/old`, {
-          lat: lat,
-          lng: lng,
-          time: time
-        })
-
-      } catch (error) {
-        console.error(error)
-      }
-    }
-
-    // if (weather && weather.weather) {
-    //   fetchHistorical()
-    // }
-  }, [weather])
 
   setTimeout(function () {
     console.log('this is his weather', historicalWeather)
