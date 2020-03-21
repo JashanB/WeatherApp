@@ -9,8 +9,25 @@ class Graph extends Component {
     return this.props.contributors.map(contributor => {
       return { label: contributor.org_name, y: parseInt(contributor.total) };
     });
-  };
+	};
+	
 	render() {
+		let setNumber = this.props.pastYears
+		const yearMinus1 = [];
+		const yearMinus2 = [];
+		const yearMinus3 = [];
+		const yearMinus4 = [];
+		const yearMinus5 = [];
+		const yearMinus6 = [];
+		const yearMinus7 = [];
+		const yearMinus8 = [];
+		const yearMinus9 = [];
+		const yearMinus10 = [];
+		for (day of this.props.historicalData.hisWeather) {
+			if (day.index === 1) {
+				yearMinus1.push(day.data)
+			}
+		}
 		const options = {
 			animationEnabled: true,
 			exportEnabled: true,
@@ -30,7 +47,7 @@ class Graph extends Component {
 			},
 			data: [{
 				type: "line",
-				toolTipContent: "Week {x}: {y}%",
+				toolTipContent: "Week {x}: {y}%", //sets tool tip thing when hovering 
 				dataPoints: [
 					{ x: 1, y: 64 },
 					{ x: 2, y: 61 },
