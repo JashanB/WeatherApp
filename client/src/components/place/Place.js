@@ -57,13 +57,6 @@ export default (props) => {
         })
         if (historicalWeatherResponse.status === 200 && historicalWeatherResponse.statusText === "OK") {
           const data = JSON.parse(historicalWeatherResponse.data.data)
-          // console.log('his weather response', {data})
-          // const dataObject = {
-          //   index: index,
-          //   data: data.daily.data[0]
-          // }
-          // hisWeatherObject[index] = []
-          // hisWeatherArray.push(dataObject)
           if (hisWeatherObject[index] && hisWeatherObject[index].length >0) {
             hisWeatherObject[index].push(data.daily.data[0])
           } else {
@@ -71,15 +64,6 @@ export default (props) => {
             hisWeatherObject[index].push(data.daily.data[0])
           }
         } 
-        // else {
-        //   const dataObject = {
-        //     index: 100
-        //   }
-        //   hisWeatherArray.push(dataObject)
-        // }
-        // setHistoricalWeather(state => ({
-        //   hisWeather: [...historicalWeather.hisWeather, ...hisWeatherArray]
-        // }))
         setHistoricalWeather(state => ({
           hisWeather: hisWeatherObject
         }))
