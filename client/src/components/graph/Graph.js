@@ -4,70 +4,87 @@ const CanvasJS = CanvasJSReact.CanvasJS;
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const toCelsius = function (num) {
-  const temp = ((num - 32) * 5 / 9).toFixed(1)
-  return temp
+	const temp = ((num - 32) * 5 / 9).toFixed(1)
+	return temp
 }
 
 export default (props) => {
-		let setNumber = props.pastYears
-		// for (year of Object.keys(props.historicalData)) {
-
-		// }
-		const minus1 = props.historicalData.hisWeather["1"].map(function(day, index) {
+	let setNumber = props.pastYears
+	if (props.historicalData.hisWeather["1"]) {
+		const minus1 = props.historicalData.hisWeather["1"].map(function (day, index) {
 			const averageTemp = toCelsius((day.temperatureHigh + day.temperatureLow) / 2)
-			const dataObject = {x: 1, y: averageTemp}
+			const dataObject = { x: 1, y: averageTemp }
 			return dataObject
 		})
-		const minus2 = props.historicalData.hisWeather["2"].map(function(day, index) {
+	}
+	if (props.historicalData.hisWeather["2"]) {
+		const minus2 = props.historicalData.hisWeather["2"].map(function (day, index) {
 			const averageTemp = toCelsius((day.temperatureHigh + day.temperatureLow) / 2)
-			const dataObject = {x: 2, y: averageTemp}
+			const dataObject = { x: 2, y: averageTemp }
 			return dataObject
 		})
-		const minus3 = props.historicalData.hisWeather["3"].map(function(day, index) {
+	}
+	if (props.historicalData.hisWeather["3"]) {
+		const minus3 = props.historicalData.hisWeather["3"].map(function (day, index) {
 			const averageTemp = toCelsius((day.temperatureHigh + day.temperatureLow) / 2)
-			const dataObject = {x: 3, y: averageTemp}
+			const dataObject = { x: 3, y: averageTemp }
 			return dataObject
 		})
-		const minus4 = props.historicalData.hisWeather["4"].map(function(day, index) {
+	}
+	if (props.historicalData.hisWeather["4"]) {
+		const minus4 = props.historicalData.hisWeather["4"].map(function (day, index) {
 			const averageTemp = toCelsius((day.temperatureHigh + day.temperatureLow) / 2)
-			const dataObject = {x: 4, y: averageTemp}
+			const dataObject = { x: 4, y: averageTemp }
 			return dataObject
 		})
-		const minus5 = props.historicalData.hisWeather["5"].map(function(day, index) {
+	}
+	if (props.historicalData.hisWeather["5"]) {
+		const minus5 = props.historicalData.hisWeather["5"].map(function (day, index) {
 			const averageTemp = toCelsius((day.temperatureHigh + day.temperatureLow) / 2)
-			const dataObject = {x: 5, y: averageTemp}
+			const dataObject = { x: 5, y: averageTemp }
 			return dataObject
 		})
-		const minus6 = props.historicalData.hisWeather["6"].map(function(day, index) {
+	}
+	if (props.historicalData.hisWeather["6"]) {
+		const minus6 = props.historicalData.hisWeather["6"].map(function (day, index) {
 			const averageTemp = toCelsius((day.temperatureHigh + day.temperatureLow) / 2)
-			const dataObject = {x: 6, y: averageTemp}
+			const dataObject = { x: 6, y: averageTemp }
 			return dataObject
 		})
-		const minus7 = props.historicalData.hisWeather["7"].map(function(day, index) {
+	}
+	if (props.historicalData.hisWeather["7"]) {
+		const minus7 = props.historicalData.hisWeather["7"].map(function (day, index) {
 			const averageTemp = toCelsius((day.temperatureHigh + day.temperatureLow) / 2)
-			const dataObject = {x: 7, y: averageTemp}
+			const dataObject = { x: 7, y: averageTemp }
 			return dataObject
 		})
-		const minus8 = props.historicalData.hisWeather["8"].map(function(day, index) {
+	}
+	if (props.historicalData.hisWeather["8"]) {
+		const minus8 = props.historicalData.hisWeather["8"].map(function (day, index) {
 			const averageTemp = toCelsius((day.temperatureHigh + day.temperatureLow) / 2)
-			const dataObject = {x: 8, y: averageTemp}
+			const dataObject = { x: 8, y: averageTemp }
 			return dataObject
 		})
-		const minus9 = props.historicalData.hisWeather["9"].map(function(day, index) {
+	}
+	if (props.historicalData.hisWeather["9"]) {
+		const minus9 = props.historicalData.hisWeather["9"].map(function (day, index) {
 			const averageTemp = toCelsius((day.temperatureHigh + day.temperatureLow) / 2)
-			const dataObject = {x: 9, y: averageTemp}
+			const dataObject = { x: 9, y: averageTemp }
 			return dataObject
 		})
-		const minus10 = props.historicalData.hisWeather["10"].map(function(day, index) {
+	}
+	if (props.historicalData.hisWeather["10"]) {
+		const minus10 = props.historicalData.hisWeather["10"].map(function (day, index) {
 			const averageTemp = toCelsius((day.temperatureHigh + day.temperatureLow) / 2)
-			const dataObject = {x: 10, y: averageTemp}
+			const dataObject = { x: 10, y: averageTemp }
 			return dataObject
 		})
+	}
 		const options = {
 			animationEnabled: true,
 			exportEnabled: true,
 			theme: "light2", // "light1", "dark1", "dark2"
-			title:{
+			title: {
 				text: "Bounce Rate by Week of Year"
 			},
 			axisY: {
@@ -111,12 +128,12 @@ export default (props) => {
 			}]
 		}
 		return (
-		<div>
-			<CanvasJSChart options = {options}
+			<div>
+				<CanvasJSChart options={options}
 				// {/* /* onRef={ref => this.chart = ref} */ */}
-			/>
-			{/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
-		</div>
+				/>
+				{/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
+			</div>
 		);
-	
-}
+
+	}
