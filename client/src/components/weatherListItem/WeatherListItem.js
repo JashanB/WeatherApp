@@ -19,9 +19,11 @@ export default (props) => {
   const iconName = props.icon.toUpperCase()
   const replacedName = iconName.replace(/-/g, "_")
   const iconObject = setIcon(replacedName)
+  console.log('item', props.userId)
+  console.log('key', props.id)
 
   return (
-    // <a href={}>
+    <a href={`http://localhost:3000/users/${props.userId}/places/${props.id}`}>
       <div className="weather-item">
         <h2>{props.name}</h2>
         <ReactAnimatedWeather
@@ -32,6 +34,6 @@ export default (props) => {
         />
         <h3>{currentTemp}°C</h3><h3>Feels Like {apparentTemp}°C</h3>
       </div>
-    // </a>
+    </a>
   )
 }

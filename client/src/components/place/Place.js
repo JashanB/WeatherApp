@@ -19,7 +19,7 @@ export default (props) => {
   const { id } = useParams();
   const user_id = props.match.params.user_id
   const place_id = props.match.params.id
-  const goIntoPastByXYears = 2
+  const goIntoPastByXYears = 5
 
   useEffect(() => {
     async function fetchData() {

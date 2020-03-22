@@ -209,7 +209,7 @@ export default (props) => {
     />
     <WeatherList
       // items={"Needs to be passed down names of places searched and weather data"}
-      weatherData={weather}
+      userId={id} weatherData={weather}
     />
   </>)
 }
