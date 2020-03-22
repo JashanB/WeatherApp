@@ -52,93 +52,12 @@ export default (props) => {
 			let obj = {
 				type: "spline",
 				name: historicalYear,
+				showInLegend: true,
 				dataPoints: dataArray
 			};
 			data.push(obj)
 		}
 	}
-	console.log('graph', currentData)
-	console.log('dataArray', data)
-	// if (props.historicalData.hisWeather && props.historicalData.hisWeather["1"]) {
-	// 	const minus1 = props.historicalData.hisWeather["1"].map(function (day, index) {
-	// 		const averageTemp = toCelsius((day.temperatureHigh + day.temperatureLow) / 2)
-	// 		const humanTime = convertTime(day.time)
-	// 		const dataObject = { y: averageTemp, label: humanTime }
-	// 		return dataObject
-	// 	})
-	// }
-	// if (props.historicalData.hisWeather && props.historicalData.hisWeather["2"]) {
-	// 	const minus2 = props.historicalData.hisWeather["2"].map(function (day, index) {
-	// 		const averageTemp = toCelsius((day.temperatureHigh + day.temperatureLow) / 2)
-	// 		const humanTime = convertTime(day.time)
-	// 		const dataObject = { y: averageTemp, label: humanTime }
-	// 		return dataObject
-	// 	})
-	// }
-	// if (props.historicalData.hisWeather && props.historicalData.hisWeather["3"]) {
-	// 	const minus3 = props.historicalData.hisWeather["3"].map(function (day, index) {
-	// 		const averageTemp = toCelsius((day.temperatureHigh + day.temperatureLow) / 2)
-	// 		const humanTime = convertTime(day.time)
-	// 		const dataObject = { y: averageTemp, label: humanTime }
-	// 		return dataObject
-	// 	})
-	// }
-	// if (props.historicalData.hisWeather && props.historicalData.hisWeather["4"]) {
-	// 	const minus4 = props.historicalData.hisWeather["4"].map(function (day, index) {
-	// 		const averageTemp = toCelsius((day.temperatureHigh + day.temperatureLow) / 2)
-	// 		const humanTime = convertTime(day.time)
-	// 		const dataObject = { y: averageTemp, label: humanTime }
-	// 		return dataObject
-	// 	})
-	// }
-	// if (props.historicalData.hisWeather && props.historicalData.hisWeather["5"]) {
-	// 	const minus5 = props.historicalData.hisWeather["5"].map(function (day, index) {
-	// 		const averageTemp = toCelsius((day.temperatureHigh + day.temperatureLow) / 2)
-	// 		const humanTime = convertTime(day.time)
-	// 		const dataObject = { y: averageTemp, label: humanTime }
-	// 		return dataObject
-	// 	})
-	// }
-	// if (props.historicalData.hisWeather && props.historicalData.hisWeather["6"]) {
-	// 	const minus6 = props.historicalData.hisWeather["6"].map(function (day, index) {
-	// 		const averageTemp = toCelsius((day.temperatureHigh + day.temperatureLow) / 2)
-	// 		const humanTime = convertTime(day.time)
-	// 		const dataObject = { y: averageTemp, label: humanTime }
-	// 		return dataObject
-	// 	})
-	// }
-	// if (props.historicalData.hisWeather && props.historicalData.hisWeather["7"]) {
-	// 	const minus7 = props.historicalData.hisWeather["7"].map(function (day, index) {
-	// 		const averageTemp = toCelsius((day.temperatureHigh + day.temperatureLow) / 2)
-	// 		const humanTime = convertTime(day.time)
-	// 		const dataObject = { y: averageTemp, label: humanTime }
-	// 		return dataObject
-	// 	})
-	// }
-	// if (props.historicalData.hisWeather && props.historicalData.hisWeather["8"]) {
-	// 	const minus8 = props.historicalData.hisWeather["8"].map(function (day, index) {
-	// 		const averageTemp = toCelsius((day.temperatureHigh + day.temperatureLow) / 2)
-	// 		const humanTime = convertTime(day.time)
-	// 		const dataObject = { y: averageTemp, label: humanTime }
-	// 		return dataObject
-	// 	})
-	// }
-	// if (props.historicalData.hisWeather && props.historicalData.hisWeather["9"]) {
-	// 	const minus9 = props.historicalData.hisWeather["9"].map(function (day, index) {
-	// 		const averageTemp = toCelsius((day.temperatureHigh + day.temperatureLow) / 2)
-	// 		const humanTime = convertTime(day.time)
-	// 		const dataObject = { y: averageTemp, label: humanTime }
-	// 		return dataObject
-	// 	})
-	// }
-	// if (props.historicalData.hisWeather && props.historicalData.hisWeather["10"]) {
-	// 	const minus10 = props.historicalData.hisWeather["10"].map(function (day, index) {
-	// 		const averageTemp = toCelsius((day.temperatureHigh + day.temperatureLow) / 2)
-	// 		const humanTime = convertTime(day.time)
-	// 		const dataObject = { y: averageTemp, label: humanTime }
-	// 		return dataObject
-	// 	})
-	// }
 	const options = {
 		animationEnabled: true,
 		title: {

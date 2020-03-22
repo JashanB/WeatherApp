@@ -88,7 +88,7 @@ export default (props) => {
           //where i <= is the # of years the call will go back 
           const getHistoricalWeather = weatherObject.weatherData.daily.data.map(function (day) {
             const queryTime = day.time - (31556926 * i)
-            // fetchHistorical(weatherObject.latitude, weatherObject.longitude, queryTime, i)
+            fetchHistorical(weatherObject.latitude, weatherObject.longitude, queryTime, i)
           })
         }
         setWeather(state => ({
