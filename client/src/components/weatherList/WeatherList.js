@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import WeatherListItem from '../weatherListItem'
+// import Button from '../weatherListItem'
 
 export default (props) => {
   const places = props.weatherData.weather.map(place => <WeatherListItem
@@ -12,6 +13,7 @@ export default (props) => {
     icon={place.weatherData.currently.icon}
     hourly={place.weatherData.hourly}
     daily={place.weatherData.daily}
+    deletePlace={props.deletePlace}
     />)
 
     return (

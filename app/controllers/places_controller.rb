@@ -18,6 +18,11 @@ class PlacesController < ApplicationController
       places: @places
     }
   end
+  
+  def destroy
+    @place = Place.find_by(id: params[:id])
+    @place.destroy
+  end
 
   def create
     @place = Place.new(add_place_params)

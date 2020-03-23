@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import ReactAnimatedWeather from 'react-animated-weather';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+
+
 
 
 const setIcon = function (icon) {
@@ -11,6 +15,16 @@ const setIcon = function (icon) {
   return object
 }
 
+const Button = (props) => {
+  return (
+    <IconButton>
+    <DeleteIcon className={"card-delete-icon"} 
+     className={"delete-point-button"}
+     onClick={() => {props.deletePlace(props.id)}}/>
+  </IconButton>
+    
+  )
+}
 export default (props) => {
   //convert to celsius 
   const currentTemp = ((props.currentTemp - 32) * 5 / 9).toFixed(1)
