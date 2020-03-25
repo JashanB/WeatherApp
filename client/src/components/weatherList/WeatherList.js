@@ -20,7 +20,7 @@ export default (props) => {
 
     return (
       <ul>
-        {places}
+        {props.weatherData.weather && props.weatherData.weather.length > 0 && props.userId && places}
       </ul>
     )
 }

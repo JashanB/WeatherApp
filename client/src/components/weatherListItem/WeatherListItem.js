@@ -34,14 +34,6 @@ export default (props) => {
   console.log('item', props.userId)
   console.log('key', props.id)
 
-  // const deletePlace = function(placeId) {
-  //   axios.delete(`http://localhost:3001/users/${props.userId}/places/${props.id}`)
-  //   .then((res) => {
-  //     const arrayMinus = props.allPlaces.places.map(place => place.id !== placeId)
-  //     props.setAllPlaces(state => ({places: arrayMinus}))
-  //   })
-  // }
-
   return (
     <div>
       <a href={`http://localhost:3000/users/${props.userId}/places/${props.id}`}>

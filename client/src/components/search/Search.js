@@ -83,13 +83,28 @@ export default (props) => {
   const [weather, setWeather] = useState({ weather: [] });
   const [onRender, setOnRender] = useState({ places: [] })
   const [allPlaces, setAllPlaces] = useState({ places: [] });
+  const [ifDeleted, setIfDeleted] = useState({deleted: []});
   const { id } = useParams();
 
   const deletePlace = function(placeId) {
     axios.delete(`http://localhost:3001/users/${id}/places/${placeId}`)
     .then((res) => {
-      const arrayMinus = allPlaces.places.map(place => place.id !== placeId)
-      setAllPlaces(state => ({places: arrayMinus}))
+      const placeMinus = allPlaces.places.filter(place => place.id !== placeId)
+      // const placeMinus = allPlaces.places.filter(function(place) {
+      //   if (place.id !== placeId) {
+      //     return place
+      //   }
+      // })
+      const weatherMinus = weather.weather.filter(place => place.id !== placeId)
+      // const weatherMinus = weather.weather.filter(function(place) {
+      //   if (place.id !== placeId) {
+      //     return place
+      //   } 
+      // })
+      setAllPlaces(state => ({places: placeMinus}))
+      setIfDeleted(state => ({deleted: [...ifDeleted.deleted, placeId]}))
+      setWeather(state => ({weather: weatherMinus}))
+      console.log('i did it')
     })
   }
 
@@ -166,7 +181,7 @@ export default (props) => {
       }
     }
     fetchData();
-  }, [])
+  }, [ifDeleted])
   //gets weather data for all places in database on load
   useEffect(() => {
     async function fetchData() {
@@ -215,13 +230,13 @@ export default (props) => {
       onPlacesChanged={onPlacesChanged}
       onSearchBoxMounted={onSearchBoxMounted}
     />
-    <WeatherList
+    {allPlaces.places && allPlaces.places.length > 0 && weather.weather && weather.weather.length > 0 && <WeatherList
       // items={"Needs to be passed down names of places searched and weather data"}
       userId={id} 
       weatherData={weather} 
       deletePlace={deletePlace} 
       // setAllPlaces={setAllPlaces}
       // allPlaces={allPlaces}
-    />
+    />}
   </>)
 }
