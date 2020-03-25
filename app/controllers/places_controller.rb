@@ -20,6 +20,7 @@ class PlacesController < ApplicationController
   end
   
   def destroy
+    puts "these are delete params #{params}"
     @place = Place.find_by(id: params[:id])
     @place.destroy
   end

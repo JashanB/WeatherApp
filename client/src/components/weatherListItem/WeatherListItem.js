@@ -17,11 +17,9 @@ const setIcon = function (icon) {
 
 const Button = (props) => {
   return (
-    <IconButton>
-      <DeleteIcon className={"card-delete-icon"}
-        className={"delete-point-button"}
-        onClick={() => props.deletePlace(props.id) } />
-    </IconButton>
+    <button onClick={() => props.deletePlace(props.id)}>Delete</button>
+        
+   
   )
 }
 
@@ -58,7 +56,7 @@ export default (props) => {
           <h3>{currentTemp}°C</h3><h3>Feels Like {apparentTemp}°C</h3>
         </div>
       </a>
-      <Button deletePlace={props.deletePlace}/>
+      <Button id={props.id} deletePlace={props.deletePlace}/>
     </div>
   )
 }
