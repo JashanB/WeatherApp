@@ -83,29 +83,18 @@ export default (props) => {
   const [weather, setWeather] = useState({ weather: [] });
   const [onRender, setOnRender] = useState({ places: [] })
   const [allPlaces, setAllPlaces] = useState({ places: [] });
-  const [ifDeleted, setIfDeleted] = useState({deleted: []});
+  const [ifDeleted, setIfDeleted] = useState({ deleted: [] });
   const { id } = useParams();
 
-  const deletePlace = function(placeId) {
+  const deletePlace = function (placeId) {
     axios.delete(`http://localhost:3001/users/${id}/places/${placeId}`)
-    .then((res) => {
-      const placeMinus = allPlaces.places.filter(place => place.id !== placeId)
-      // const placeMinus = allPlaces.places.filter(function(place) {
-      //   if (place.id !== placeId) {
-      //     return place
-      //   }
-      // })
-      const weatherMinus = weather.weather.filter(place => place.id !== placeId)
-      // const weatherMinus = weather.weather.filter(function(place) {
-      //   if (place.id !== placeId) {
-      //     return place
-      //   } 
-      // })
-      setAllPlaces(state => ({places: placeMinus}))
-      setIfDeleted(state => ({deleted: [...ifDeleted.deleted, placeId]}))
-      setWeather(state => ({weather: weatherMinus}))
-      console.log('i did it')
-    })
+      .then((res) => {
+        const placeMinus = allPlaces.places.filter(place => place.id !== placeId)
+        const weatherMinus = weather.weather.filter(place => place.id !== placeId)
+        setAllPlaces(state => ({ places: placeMinus }))
+        setIfDeleted(state => ({ deleted: [...ifDeleted.deleted, placeId] }))
+        setWeather(state => ({ weather: weatherMinus }))
+      })
   }
 
   const onPlacesChanged = () => {
@@ -221,22 +210,26 @@ export default (props) => {
     fetchData()
   }, [onRender])
 
-  return (<>
-    <h1> Search box</h1>
-    <SearchBox
-      googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}
-      loadingElement={<div style={{ height: `100%` }} />}
-      containerElement={<div style={{ height: `100%` }} />}
-      onPlacesChanged={onPlacesChanged}
-      onSearchBoxMounted={onSearchBoxMounted}
-    />
-    {allPlaces.places && allPlaces.places.length > 0 && weather.weather && weather.weather.length > 0 && <WeatherList
-      // items={"Needs to be passed down names of places searched and weather data"}
-      userId={id} 
-      weatherData={weather} 
-      deletePlace={deletePlace} 
+  return (<div className={"search-page-container"}>
+    <div className={"search-box"}>
+      <h1> Search box</h1>
+      <SearchBox
+        googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}
+        loadingElement={<div style={{ height: `100%` }} />}
+        containerElement={<div style={{ height: `100%` }} />}
+        onPlacesChanged={onPlacesChanged}
+        onSearchBoxMounted={onSearchBoxMounted}
+      />
+    </div>
+    <div className={"weather-list-container"}>
+      {allPlaces.places && allPlaces.places.length > 0 && weather.weather && weather.weather.length > 0 && <WeatherList
+        // items={"Needs to be passed down names of places searched and weather data"}
+        userId={id}
+        weatherData={weather}
+        deletePlace={deletePlace}
       // setAllPlaces={setAllPlaces}
       // allPlaces={allPlaces}
-    />}
-  </>)
+      />}
+    </div>
+  </div>)
 }

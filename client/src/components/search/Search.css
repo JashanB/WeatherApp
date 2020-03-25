@@ -1,0 +1,4 @@
+.weather-container-list {
+  display: flex;
+  flex-direction: column;
+}

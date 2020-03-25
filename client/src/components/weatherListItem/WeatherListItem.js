@@ -35,7 +35,7 @@ export default (props) => {
   console.log('key', props.id)
 
   return (
-    <div>
+    <div className={"weather-list-item"}>
       <a href={`http://localhost:3000/users/${props.userId}/places/${props.id}`}>
         <div className="weather-item">
           <h2>{props.name}</h2>
@@ -45,7 +45,7 @@ export default (props) => {
             size={iconObject.size}
             animate={iconObject.animate}
           />
-          <h3>{currentTemp}°C</h3><h3>Feels Like {apparentTemp}°C</h3>
+          <h3>Currently: {currentTemp}°C</h3><h3>Feels Like {apparentTemp}°C</h3>
         </div>
       </a>
       <Button id={props.id} deletePlace={props.deletePlace}/>

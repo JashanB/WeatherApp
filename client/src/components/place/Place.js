@@ -16,10 +16,11 @@ export default (props) => {
   const [onRender, setOnRender] = useState({})
   const [historicalWeather, setHistoricalWeather] = useState({})
   const [place, setPlace] = useState({});
+  const [goIntoPastByXYears, setGoIntoPastByXYears] = useState(5)
   const { id } = useParams();
   const user_id = props.match.params.user_id
   const place_id = props.match.params.id
-  const goIntoPastByXYears = 5
+  // const goIntoPastByXYears = 5
 
   useEffect(() => {
     async function fetchData() {
@@ -111,7 +112,7 @@ export default (props) => {
     <>
       {weather.weather && weather.weather.weatherData && <Hourly name={weather.weather.name} weatherData={weather.weather.weatherData} />}
       {weather.weather && weather.weather.weatherData && <Weekly weatherData={weather.weather.weatherData} />}
-      {weather.weather && weather.weather.weatherData && <Graph pastYears={goIntoPastByXYears} historicalData={historicalWeather} weatherData={weather.weather.weatherData} />}
+      {weather.weather && weather.weather.weatherData && <Graph setPastYears={setGoIntoPastByXYears} pastYears={goIntoPastByXYears} historicalData={historicalWeather} weatherData={weather.weather.weatherData} />}
     </>
   )
 
