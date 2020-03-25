@@ -14,6 +14,8 @@ export default (props) => {
     hourly={place.weatherData.hourly}
     daily={place.weatherData.daily}
     deletePlace={props.deletePlace}
+    // setAllPLaces={props.setAllPLaces}
+    // allPlaces={props.allPlaces}
     />)
 
     return (

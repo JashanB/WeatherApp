@@ -85,13 +85,13 @@ export default (props) => {
   const [allPlaces, setAllPlaces] = useState({ places: [] });
   const { id } = useParams();
 
-  const deletePlace = function(placeId) {
-    axios.delete(`http://localhost:3001/users/${id}/places/${placeId}`)
-    .then((res) => {
-      const arrayMinus = allPlaces.places.map(place => place.id !== placeId)
-      setAllPlaces(state => ({places: arrayMinus}))
-    })
-  }
+  // const deletePlace = function(placeId) {
+  //   axios.delete(`http://localhost:3001/users/${id}/places/${placeId}`)
+  //   .then((res) => {
+  //     const arrayMinus = allPlaces.places.map(place => place.id !== placeId)
+  //     setAllPlaces(state => ({places: arrayMinus}))
+  //   })
+  // }
 
   const onPlacesChanged = () => {
     const places = refs.searchBox.getPlaces(); //gets place of thing searched
@@ -217,7 +217,11 @@ export default (props) => {
     />
     <WeatherList
       // items={"Needs to be passed down names of places searched and weather data"}
-      userId={id} weatherData={weather} deletePlace={deletePlace}
+      userId={id} 
+      weatherData={weather} 
+      deletePlace={deletePlace} 
+      // setAllPlaces={setAllPlaces}
+      // allPlaces={allPlaces}
     />
   </>)
 }

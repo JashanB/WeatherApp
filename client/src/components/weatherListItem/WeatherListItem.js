@@ -18,13 +18,13 @@ const setIcon = function (icon) {
 const Button = (props) => {
   return (
     <IconButton>
-    <DeleteIcon className={"card-delete-icon"} 
-     className={"delete-point-button"}
-     onClick={() => {props.deletePlace(props.id)}}/>
-  </IconButton>
-    
+      <DeleteIcon className={"card-delete-icon"}
+        className={"delete-point-button"}
+        onClick={() => props.deletePlace(props.id) } />
+    </IconButton>
   )
 }
+
 export default (props) => {
   //convert to celsius 
   const currentTemp = ((props.currentTemp - 32) * 5 / 9).toFixed(1)
@@ -36,18 +36,29 @@ export default (props) => {
   console.log('item', props.userId)
   console.log('key', props.id)
 
+  // const deletePlace = function(placeId) {
+  //   axios.delete(`http://localhost:3001/users/${props.userId}/places/${props.id}`)
+  //   .then((res) => {
+  //     const arrayMinus = props.allPlaces.places.map(place => place.id !== placeId)
+  //     props.setAllPlaces(state => ({places: arrayMinus}))
+  //   })
+  // }
+
   return (
-    <a href={`http://localhost:3000/users/${props.userId}/places/${props.id}`}>
-      <div className="weather-item">
-        <h2>{props.name}</h2>
-        <ReactAnimatedWeather
-          className={"weather-icon"}
-          icon={iconObject.icon}
-          size={iconObject.size}
-          animate={iconObject.animate}
-        />
-        <h3>{currentTemp}°C</h3><h3>Feels Like {apparentTemp}°C</h3>
-      </div>
-    </a>
+    <div>
+      <a href={`http://localhost:3000/users/${props.userId}/places/${props.id}`}>
+        <div className="weather-item">
+          <h2>{props.name}</h2>
+          <ReactAnimatedWeather
+            className={"weather-icon"}
+            icon={iconObject.icon}
+            size={iconObject.size}
+            animate={iconObject.animate}
+          />
+          <h3>{currentTemp}°C</h3><h3>Feels Like {apparentTemp}°C</h3>
+        </div>
+      </a>
+      <Button deletePlace={props.deletePlace}/>
+    </div>
   )
 }
