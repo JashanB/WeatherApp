@@ -1,4 +1,4 @@
-# WeatherApp Trip - Read Me
+# WeatherApp Trip (Work in Progress!)
 
 ## Getting Started
 First, fork this repo so you get your own copy of it. Once you have done that, you can clone your new repo to your machine, and get started.
@@ -10,16 +10,14 @@ In one terminal, run `bundle` to install the dependencies. Run `bin/rake db:setu
 In the other terminal, `cd` into `client`. Run `npm install`. Then run `npm start` and go to `localhost:3000` in your browser.
 
 ## App Flow
-Choose dates for your trip, search locations to add and drag and drop them into your calendar.
+Search, save and delete your favourite locations.
 
 ![](Weather1.gif)
 
-Add more locations to view routes between destinations based on method of travel.
+Click on a location to view its 48 hour forecast and weekly forecast. 
+Scroll down to compare how this week's forecast compares to years in the past!
 
 ![](Weather2.gif)
-
-Open the Reccomendations tab to view suggested places and their location on the map.
-
 
 ## APIs and Tech Stack
 This project used ReactJs for the Frontend and Ruby on Rails for the Backend.
