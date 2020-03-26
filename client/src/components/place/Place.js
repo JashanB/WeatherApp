@@ -56,6 +56,7 @@ export default (props) => {
           longitude: lng,
           time: time
         })
+        console.log('his weather fetch')
         if (historicalWeatherResponse.status === 200 && historicalWeatherResponse.statusText === "OK") {
           const data = JSON.parse(historicalWeatherResponse.data.data)
           if (hisWeatherObject[index] && hisWeatherObject[index].length >0) {
@@ -78,6 +79,7 @@ export default (props) => {
           latitude: place.places.latitude,
           longitude: place.places.longitude
         })
+        console.log('weather fetch')
         const weatherObject = {
           name: place.places.name,
           id: place.places.id,
@@ -85,6 +87,7 @@ export default (props) => {
           longitude: place.places.longitude,
           weatherData: JSON.parse(weekWeatherResponse.data.data)
         }
+        console.log('weather!', weatherObject.weatherData)
         for (let i = 1; i <= goIntoPastByXYears; i++) {
           //where i <= is the # of years the call will go back 
           const getHistoricalWeather = weatherObject.weatherData.daily.data.map(function (day) {

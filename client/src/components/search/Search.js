@@ -90,10 +90,13 @@ export default (props) => {
     axios.delete(`http://localhost:3001/users/${id}/places/${placeId}`)
       .then((res) => {
         const placeMinus = allPlaces.places.filter(place => place.id !== placeId)
+        console.log('place minus', placeMinus)
         const weatherMinus = weather.weather.filter(place => place.id !== placeId)
+        console.log('weather minus', weatherMinus)
+
         setAllPlaces(state => ({ places: placeMinus }))
-        setIfDeleted(state => ({ deleted: [...ifDeleted.deleted, placeId] }))
         setWeather(state => ({ weather: weatherMinus }))
+        // setIfDeleted(state => ({ deleted: [...ifDeleted.deleted, placeId] }))
       })
   }
 
@@ -170,7 +173,7 @@ export default (props) => {
       }
     }
     fetchData();
-  }, [ifDeleted])
+  }, [])
   //gets weather data for all places in database on load
   useEffect(() => {
     async function fetchData() {

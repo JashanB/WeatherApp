@@ -22,6 +22,7 @@ const getYear = function (year) {
 }
 
 export default (props) => {
+	// const [years, setYears] = useState(props.pastYears || 0)
 	const data = [];
 	const currentDate = new Date(props.weatherData.daily.data[0].time * 1000)
 	const currentTime = currentDate.getFullYear().toString();
@@ -58,6 +59,7 @@ export default (props) => {
 			data.push(obj)
 		}
 	}
+
 	const options = {
 		animationEnabled: true,
 		title: {
@@ -74,8 +76,11 @@ export default (props) => {
 	}
 	return (
 		<div>
+			{/* <form onSubmit={event => event.preventDefault()}>
+				<input type="number" value={props.pastYears} onChange={event => console.log('event,', event)}/>
+			</form> */}
 			<CanvasJSChart
-			options={options}
+				options={options}
 			// {/* /* onRef={ref => this.chart = ref} */ */}
 			/>
 			{/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
