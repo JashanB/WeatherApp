@@ -36,7 +36,6 @@ export default (props) => {
     })
   return (
     <ul className="hourly-list">
-      {props.name}
       {hourlyWeather}
     </ul>)
 }

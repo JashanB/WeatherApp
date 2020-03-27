@@ -113,7 +113,8 @@ export default (props) => {
 
   return (
     <>
-      {weather.weather && weather.weather.weatherData && <Hourly name={weather.weather.name} weatherData={weather.weather.weatherData} />}
+      <h2>{weather.weather && weather.weather.weatherData && weather.weather.name}</h2>
+      {weather.weather && weather.weather.weatherData && <Hourly weatherData={weather.weather.weatherData} />}
       {weather.weather && weather.weather.weatherData && <Weekly weatherData={weather.weather.weatherData} />}
       {weather.weather && weather.weather.weatherData && <Graph setPastYears={setGoIntoPastByXYears} pastYears={goIntoPastByXYears} historicalData={historicalWeather} weatherData={weather.weather.weatherData} />}
     </>
