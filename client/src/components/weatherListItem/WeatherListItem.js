@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import ReactAnimatedWeather from 'react-animated-weather';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import './WeatherListItem.css';
+
 
 
 
@@ -36,9 +38,9 @@ export default (props) => {
 
   return (
     <div className={"weather-list-item"}>
-      <a href={`http://localhost:3000/users/${props.userId}/places/${props.id}`}>
+      <a classname={"link"} href={`http://localhost:3000/users/${props.userId}/places/${props.id}`}>
         <div className="weather-item">
-          <h2>{props.name}</h2>
+          <h2 className={"name-header"}>{props.name}</h2>
           <ReactAnimatedWeather
             className={"weather-icon"}
             icon={iconObject.icon}

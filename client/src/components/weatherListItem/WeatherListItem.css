@@ -1,0 +1,11 @@
+.weather-list-item {
+  text-decoration: none;
+}
+
+.name-header {
+  text-align: left;
+}
+
+.weather-icon {
+  text-align: right;
+}
