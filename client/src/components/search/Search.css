@@ -1,10 +1,10 @@
 .search-page-container {
-  background-color: #bbd5de;
-}
+  background: #bbd5de;
+};
 
 .weather-container-list {
   display: flex;
   flex-direction: column;
   color: black;
-  background-color: #bbd5de;
+  /* background-color: #bbd5de; */
 }
