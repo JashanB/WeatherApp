@@ -215,7 +215,6 @@ export default (props) => {
 
   return (<div className={"search-page-container"}>
     <div className={"search-box"}>
-      <h1> Search box</h1>
       <SearchBox
         googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}
         loadingElement={<div style={{ height: `100%` }} />}

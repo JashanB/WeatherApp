@@ -16,6 +16,7 @@ class App extends Component {
   render() {
     return (
       <Router>
+        <h1 className="weather-logo">WeatherApp</h1>
         <div className="App">
           <Switch>
             <Route path='/users/:user_id/places/:id' render={(props) => <Place {...props} />} />

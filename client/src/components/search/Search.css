@@ -1,10 +1,21 @@
+/* .weather-logo {
+  text-align: left;
+  margin-top: 2%;
+  margin-left: 2%;
+  height: 100px;
+} */
 .search-page-container {
-  background: #bbd5de;
+  /* color: #FBEEC1; */
+  /* color: #AAABB8;
+  background: #464866; */
+  /* background: #DAAD86; */
+  margin: 5%;
+  color: white;
+  /* background: linear-gradient(to top,rgba(0,0,0,0),rgba(0,0,0,0.5)); */
 };
 
 .weather-container-list {
   display: flex;
   flex-direction: column;
-  color: black;
-  /* background-color: #bbd5de; */
+  color: white;
 }

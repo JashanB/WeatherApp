@@ -1,7 +1,15 @@
 .App {
   text-align: center;
-  background:rgb(38, 112, 175);
 }
 body {
-  background: rgb(38, 112, 175);
+  /* background: rgb(38, 112, 175); */
+  /* background: #25274D */
+  background: #659DBD;
+}
+
+.weather-logo {
+  text-align: left;
+  margin-left: 2%;
+  height: 20px;
+  color: white;
 }
