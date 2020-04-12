@@ -4,7 +4,9 @@
 body {
   /* background: rgb(38, 112, 175); */
   /* background: #25274D */
-  background: #659DBD;
+  background: #8dc6e6;
+  /* background: linear-gradient(to top,#87c9ef, #659DBD); */
+  height: 100%;
 }
 
 .weather-logo {

@@ -30,6 +30,7 @@ const Input = (props) => {
   return (
     <input
       type="text"
+      className="searchTerm"
       placeholder="Search for your location"
       style={{
         boxSizing: `border-box`,
@@ -42,16 +43,6 @@ const Input = (props) => {
         boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
         fontSize: `14px`,
         outline: `none`,
-        // boxSizfaing: `border-box`,
-        // border: `1px solid transparent`,
-        // width: `240px`,
-        // height: `32px`,
-        // padding: `0 12px`,
-        // borderRadius: `3px`,
-        // boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-        // fontSize: `14px`,
-        // outline: `none`,
-        // textOverflow: `ellipses`,
       }}
     />
   )
@@ -68,11 +59,6 @@ const SearchBox = withScriptjs((props) => {
         bounds={props.bounds}
       >
         <Input />
-        {/* <Input suggestedState={props.suggestedState} suggestedLocation={props.suggestMarker.position} /> */}
-        {/* {(props.markers ? props.markers.map((marker, index) =>
-        <Marker key={index} position={marker.position} title={marker.title} />
-      ) : console.log('no marker'))} */}
-        {/* // </GoogleMap> */}
       </StandaloneSearchBox>
     </div>
   )
@@ -222,6 +208,9 @@ export default (props) => {
         onPlacesChanged={onPlacesChanged}
         onSearchBoxMounted={onSearchBoxMounted}
       />
+      <button type="submit" class="searchButton">
+        <i class="fa fa-search"></i>
+      </button>
     </div>
     <div className={"weather-list-container"}>
       {allPlaces.places && allPlaces.places.length > 0 && weather.weather && weather.weather.length > 0 && <WeatherList
