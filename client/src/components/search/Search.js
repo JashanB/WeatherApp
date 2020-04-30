@@ -187,8 +187,8 @@ export default (props) => {
     fetchData()
   }, [onRender])
 
-  return (<div className={"search-page-container"}>
-    <div className={"search-box"}>
+  return (<div className="search-page-container">
+    <div className="search-box">
       <SearchBox
         googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_API_KEY}&v=3.exp&libraries=geometry,drawing,places`}
         loadingElement={<div style={{ height: `100%` }} />}
@@ -196,11 +196,8 @@ export default (props) => {
         onPlacesChanged={onPlacesChanged}
         onSearchBoxMounted={onSearchBoxMounted}
       />
-      {/* <button type="submit" class="searchButton">
-        <i class="fa fa-search"></i>
-      </button> */}
     </div>
-    <div className={"weather-list-container"}>
+    <div id="weather-list-container">
       {allPlaces.places && allPlaces.places.length > 0 && weather.weather && weather.weather.length > 0 && <WeatherList
         // items={"Needs to be passed down names of places searched and weather data"}
         userId={id}
