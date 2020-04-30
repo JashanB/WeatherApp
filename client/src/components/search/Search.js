@@ -32,18 +32,6 @@ const Input = (props) => {
       type="text"
       id="searchTerm"
       placeholder="Search for your location"
-      style={{
-        boxSizing: `border-box`,
-        border: `1px solid transparent`,
-        width: `240px`,
-        height: `32px`,
-        marginTop: `27px`,
-        padding: `0 12px`,
-        borderRadius: `3px`,
-        boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-        fontSize: `14px`,
-        outline: `none`,
-      }}
     />
   )
 }
@@ -208,9 +196,9 @@ export default (props) => {
         onPlacesChanged={onPlacesChanged}
         onSearchBoxMounted={onSearchBoxMounted}
       />
-      <button type="submit" class="searchButton">
+      {/* <button type="submit" class="searchButton">
         <i class="fa fa-search"></i>
-      </button>
+      </button> */}
     </div>
     <div className={"weather-list-container"}>
       {allPlaces.places && allPlaces.places.length > 0 && weather.weather && weather.weather.length > 0 && <WeatherList
