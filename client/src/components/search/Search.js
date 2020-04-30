@@ -30,7 +30,7 @@ const Input = (props) => {
   return (
     <input
       type="text"
-      className="searchTerm"
+      id="searchTerm"
       placeholder="Search for your location"
       style={{
         boxSizing: `border-box`,

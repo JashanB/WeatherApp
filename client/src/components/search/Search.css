@@ -5,9 +5,13 @@
   /* color: #AAABB8;
   background: #464866; */
   /* background: #DAAD86; */
-  margin: 5%;
+  margin: auto;
+  width: 70%;
   color: white;
   /* background: linear-gradient(to top,rgba(0,0,0,0),rgba(0,0,0,0.5)); */
+  background-color: white;
+  border-radius: 15px;
+
 };
 
 .weather-container-list {
@@ -16,7 +20,7 @@
   color: white;
 }
 
-.searchTerm {
+#searchTerm {
   width: 100%;
   border: 3px solid #00B4CC;
   border-right: none;
@@ -27,7 +31,7 @@
   color: #9DBFAF;
 }
 
-.searchTerm:focus{
+#searchTerm:focus{
   color: #00B4CC;
 }
 
