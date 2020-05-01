@@ -1,7 +1,8 @@
 .hourly-item {
-  display: inline-block;
-  color: white;
-  text-align: center;
+  /* display: inline-block; */
+  color: #301e67;
+  /* text-align: center; */
   padding: 14px;
-  text-decoration: none;
+  /* text-decoration: none; */
+  flex: 0 0 auto;
 }
