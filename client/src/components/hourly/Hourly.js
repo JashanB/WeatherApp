@@ -13,6 +13,8 @@ const toCelsius = function (num) {
 export default (props) => {
     const hourlyWeather = props.weatherData.hourly.data.map(function (hourly, index) {
       //format time
+      let ifFirst = false;
+      index === 0 ? ifFirst = true : ifFirst = false;
       const date = new Date(hourly.time * 1000)
       const hours = date.getHours();
       let minutes = date.getMinutes();
@@ -25,6 +27,7 @@ export default (props) => {
       const replacedName = iconName.replace(/-/g, "_")
       return ( <HourlyItem 
       key={index}
+      ifFirst={ifFirst}
       time={formattedTime}
       temp={toCelsius(hourly.temperature)}
       feelsLike={toCelsius(hourly.apparentTemperature)}
@@ -33,7 +36,7 @@ export default (props) => {
       )
     })
   return (
-    <ul className="hourly-list">
+    <div className="hourly-list">
       {hourlyWeather}
-    </ul>)
+    </div>)
 }

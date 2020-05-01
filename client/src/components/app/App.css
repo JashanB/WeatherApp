@@ -1,6 +1,9 @@
-/* .App {
+.App {
   text-align: center;
-} */
+  display: flex;
+  flex-direction: column;
+  
+}
 body {
   /* background: rgb(38, 112, 175); */
   /* background: #25274D */

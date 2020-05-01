@@ -5,4 +5,5 @@
   padding: 14px;
   /* text-decoration: none; */
   flex: 0 0 auto;
+  display: inline-block;
 }
