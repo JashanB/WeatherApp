@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
   useParams
 } from "react-router-dom";
 import axios from 'axios';
-import Hourly from '../hourly'
-import Weekly from '../weekly'
-import Graph from '../graph'
+import Hourly from '../hourly';
+import Weekly from '../weekly';
+import Graph from '../graph';
+import './Place.css';
 
 export default (props) => {
   const [weather, setWeather] = useState({});
@@ -112,12 +110,12 @@ export default (props) => {
   }, 5000)
 
   return (
-    <>
-      <h2>{weather.weather && weather.weather.weatherData && weather.weather.name}</h2>
+    <div className="place-container">
+      <h2 className="title-header">{weather.weather && weather.weather.weatherData && weather.weather.name}</h2>
       {weather.weather && weather.weather.weatherData && <Hourly weatherData={weather.weather.weatherData} />}
       {weather.weather && weather.weather.weatherData && <Weekly weatherData={weather.weather.weatherData} />}
       {weather.weather && weather.weather.weatherData && <Graph setPastYears={setGoIntoPastByXYears} pastYears={goIntoPastByXYears} historicalData={historicalWeather} weatherData={weather.weather.weatherData} />}
-    </>
+    </div>
   )
 
 

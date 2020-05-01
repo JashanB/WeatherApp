@@ -1,4 +1,7 @@
 .weekly-list {
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
+  text-align: center;
+  color: #301e67;
+
 }

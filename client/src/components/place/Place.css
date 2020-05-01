@@ -1,0 +1,17 @@
+.place-container {
+  margin: auto;
+  width: 70%;
+  background-color: white;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: #301e67;
+}
+
+.title-header {
+  font-size: 32px;
+  width: 75%;
+  text-align: center;
+  border-bottom-style: groove;
+}

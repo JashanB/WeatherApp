@@ -1,9 +1,12 @@
 .weather-list-item {
   text-decoration: none;
+  border-bottom: 4px solid;
+  border-color: #dcd7d7;
 }
 
 a {
   text-decoration: none;
+  color: #301e67;
 }
 
 .name-header {
