@@ -16,7 +16,7 @@ export default (props) => {
   const iconObject = setIcon(props.icon)
   console.log('item props', props)
   return (
-    <div className="hourly-item">
+    <div className="weekly-item">
       <h2>{props.day}</h2>
       <h3>High: {props.tempHigh}°C</h3>
       <h3>Low: {props.tempLow}°C</h3>

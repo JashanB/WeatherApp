@@ -1,4 +1,8 @@
-.hourly-item {
+.weekly-item {
   color: #301e67;
-
+  border-bottom: 4px solid;
+  border-color: #dcd7d7;
+  width: 90%;
+  margin: auto;
+  padding-bottom: 1%;
 }
