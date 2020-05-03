@@ -18,9 +18,9 @@ export default (props) => {
     if (boolean) {
       return (
         <div className="hourly-item">
-          <h2>=Currently</h2>
+          <h2>Currently</h2>
           <h3>{props.temp}°C</h3>
-          <h3>({props.feelsLike}°C)</h3>
+          <h3>Feels like {props.feelsLike}°C</h3>
           <ReactAnimatedWeather
             className={"weather-icon"}
             icon={iconObject.icon}
@@ -34,7 +34,7 @@ export default (props) => {
         <div className="hourly-item">
           <h2>{props.time}</h2>
           <h3>{props.temp}°C</h3>
-          <h3>({props.feelsLike}°C)</h3>
+          <h3>Feels like {props.feelsLike}°C</h3>
           <ReactAnimatedWeather
             className={"weather-icon"}
             icon={iconObject.icon}

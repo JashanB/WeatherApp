@@ -95,15 +95,15 @@ export default (props) => {
         }
         setWeather(state => ({
           weather: weatherObject
-        }))
+        }));
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
-    }
+    };
     if (place && place.places) {
-      fetchData()
+      fetchData();
     }
-  }, [onRender])
+  }, [onRender]);
 
   setTimeout(function () {
     console.log('this is his weather', historicalWeather)
@@ -114,7 +114,7 @@ export default (props) => {
       <h2 className="title-header">{weather.weather && weather.weather.weatherData && weather.weather.name}</h2>
       {weather.weather && weather.weather.weatherData && <Hourly weatherData={weather.weather.weatherData} />}
       {weather.weather && weather.weather.weatherData && <Weekly weatherData={weather.weather.weatherData} />}
-      {weather.weather && weather.weather.weatherData && <Graph setPastYears={setGoIntoPastByXYears} pastYears={goIntoPastByXYears} historicalData={historicalWeather} weatherData={weather.weather.weatherData} />}
+      {/* {weather.weather && weather.weather.weatherData && <Graph setPastYears={setGoIntoPastByXYears} pastYears={goIntoPastByXYears} historicalData={historicalWeather} weatherData={weather.weather.weatherData} />} */}
     </div>
   )
 

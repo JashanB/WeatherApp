@@ -15,13 +15,13 @@ export default (props) => {
       //format time
       let ifFirst = false;
       index === 0 ? ifFirst = true : ifFirst = false;
-      const date = new Date(hourly.time * 1000)
+      const date = new Date(hourly.time * 1000);
       const hours = date.getHours();
       let minutes = date.getMinutes();
       if (minutes === 0) {
         minutes = "00"
       }
-      const formattedTime = hours + ':' + minutes
+      const formattedTime = hours + ':' + minutes;
       //set icon
       const iconName = hourly.icon.toUpperCase()
       const replacedName = iconName.replace(/-/g, "_")

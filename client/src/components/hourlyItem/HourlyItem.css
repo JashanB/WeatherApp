@@ -6,4 +6,5 @@
   /* text-decoration: none; */
   flex: 0 0 auto;
   display: inline-block;
+  border-right-style: groove;
 }

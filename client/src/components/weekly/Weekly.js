@@ -16,10 +16,9 @@ export default (props) => {
       //format time
       const date = new Date(day.time * 1000)
       const formattedTime = date.toDateString();
-      console.log('time', formattedTime)
       //set icon
-      const iconName = day.icon.toUpperCase()
-      const replacedName = iconName.replace(/-/g, "_")
+      const iconName = day.icon.toUpperCase();
+      const replacedName = iconName.replace(/-/g, "_");
       // const iconObject = setIcon(replacedName)
       return ( <WeeklyItem 
       key={index}
@@ -29,7 +28,7 @@ export default (props) => {
       icon={replacedName}
       />
       )
-    })
+    });
   return (
     <li className="weekly-list">
       {weeklyWeather}
