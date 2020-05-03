@@ -11,10 +11,9 @@ const toCelsius = function (num) {
 //set icon
 
 export default (props) => {
-  console.log("props here", props)
     const weeklyWeather = props.weatherData.daily.data.map(function (day, index) {
       //format time
-      const date = new Date(day.time * 1000)
+      const date = new Date(day.time * 1000);
       const formattedTime = date.toDateString();
       //set icon
       const iconName = day.icon.toUpperCase();

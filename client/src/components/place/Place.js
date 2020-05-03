@@ -42,7 +42,7 @@ export default (props) => {
       }
     }
     fetchData();
-  }, [])
+  }, []);
   //gets weather data for all places in database on load
   // const hisWeatherArray = [];
   let hisWeatherObject = {};
@@ -53,22 +53,21 @@ export default (props) => {
           latitude: lat,
           longitude: lng,
           time: time
-        })
-        console.log('his weather fetch')
+        });
         if (historicalWeatherResponse.status === 200 && historicalWeatherResponse.statusText === "OK") {
-          const data = JSON.parse(historicalWeatherResponse.data.data)
-          if (hisWeatherObject[index] && hisWeatherObject[index].length >0) {
+          const data = JSON.parse(historicalWeatherResponse.data.data);
+          if (hisWeatherObject[index] && hisWeatherObject[index].length > 0) {
             hisWeatherObject[index].push(data.daily.data[0])
           } else {
             hisWeatherObject[index] = []
             hisWeatherObject[index].push(data.daily.data[0])
           }
-        } 
+        };
         setHistoricalWeather(state => ({
           hisWeather: hisWeatherObject
-        }))
+        }));
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
     }
     async function fetchData() {
@@ -76,7 +75,7 @@ export default (props) => {
         const weekWeatherResponse = await axios.post(`http://localhost:3001/weather/new`, {
           latitude: place.places.latitude,
           longitude: place.places.longitude
-        })
+        });
         console.log('weather fetch')
         const weatherObject = {
           name: place.places.name,
@@ -84,13 +83,12 @@ export default (props) => {
           latitude: place.places.latitude,
           longitude: place.places.longitude,
           weatherData: JSON.parse(weekWeatherResponse.data.data)
-        }
-        console.log('weather!', weatherObject.weatherData)
+        };
         for (let i = 1; i <= goIntoPastByXYears; i++) {
           //where i <= is the # of years the call will go back 
           const getHistoricalWeather = weatherObject.weatherData.daily.data.map(function (day) {
-            const queryTime = day.time - (31556926 * i)
-            fetchHistorical(weatherObject.latitude, weatherObject.longitude, queryTime, i)
+            const queryTime = day.time - (31556926 * i);
+            fetchHistorical(weatherObject.latitude, weatherObject.longitude, queryTime, i);
           })
         }
         setWeather(state => ({
@@ -105,13 +103,12 @@ export default (props) => {
     }
   }, [onRender]);
 
-  setTimeout(function () {
-    console.log('this is his weather', historicalWeather)
-  }, 5000)
+  const today = new Date();
+  const time = today.getHours() + ':' + today.getMinutes();
 
   return (
     <div className="place-container">
-      <h2 className="title-header">{weather.weather && weather.weather.weatherData && weather.weather.name}</h2>
+      <h2 className="title-header">{weather.weather && weather.weather.weatherData && weather.weather.name} at {time}</h2>
       {weather.weather && weather.weather.weatherData && <Hourly weatherData={weather.weather.weatherData} />}
       {weather.weather && weather.weather.weatherData && <Weekly weatherData={weather.weather.weatherData} />}
       {/* {weather.weather && weather.weather.weatherData && <Graph setPastYears={setGoIntoPastByXYears} pastYears={goIntoPastByXYears} historicalData={historicalWeather} weatherData={weather.weather.weatherData} />} */}

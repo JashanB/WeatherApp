@@ -2,7 +2,9 @@
   /* display: inline-block; */
   color: #301e67;
   /* text-align: center; */
-  padding: 14px;
+  /* margin: 14px; */
+  margin-left: 10px;
+  padding-right: 10px;
   /* text-decoration: none; */
   flex: 0 0 auto;
   display: inline-block;
