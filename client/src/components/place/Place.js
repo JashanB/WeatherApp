@@ -111,7 +111,7 @@ export default (props) => {
       <h2 className="title-header">{weather.weather && weather.weather.weatherData && weather.weather.name} at {time}</h2>
       {weather.weather && weather.weather.weatherData && <Hourly weatherData={weather.weather.weatherData} />}
       {weather.weather && weather.weather.weatherData && <Weekly weatherData={weather.weather.weatherData} />}
-      {/* {weather.weather && weather.weather.weatherData && <Graph setPastYears={setGoIntoPastByXYears} pastYears={goIntoPastByXYears} historicalData={historicalWeather} weatherData={weather.weather.weatherData} />} */}
+      {weather.weather && weather.weather.weatherData && <Graph setPastYears={setGoIntoPastByXYears} pastYears={goIntoPastByXYears} historicalData={historicalWeather} weatherData={weather.weather.weatherData} />}
     </div>
   )
 
