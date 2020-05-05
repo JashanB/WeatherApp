@@ -1,4 +1,4 @@
-# WeatherApp Trip (Styling is a work in progress!)
+# WeatherApp Trip (Styling is a work in progress)
 
 ## App Flow
 Search, save and delete your favourite locations.
